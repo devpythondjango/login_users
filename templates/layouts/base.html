@@ -1,0 +1,29 @@
+<html lang="en">
+{% load static %}
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{% block title %}{% endblock %}</title>
+<link type="text/css" href="{% static 'vendor/@fortawesome/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+<link type="text/css" href="{% static 'vendor/notyf/notyf.min.css' %}" rel="stylesheet">
+<link type="text/css" href="{% static 'css/volt.css' %}" rel="stylesheet">
+    {% block stylesheets %}{% endblock stylesheets %}
+</head>
+<body>
+    <div class="container-fluid bg-soft">
+        <div class="row">
+            <div class="col-12">
+
+                {% include 'includes/sidebar.html' %}
+            
+                {% block content %}{% endblock content %}
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'includes/scripts.html' %}    
+    
+    <!-- Specific Page JS goes HERE  -->
+    {% block javascripts %}{% endblock javascripts %}
+</body>
+</html>

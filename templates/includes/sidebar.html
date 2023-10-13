@@ -1,0 +1,52 @@
+{% load static %}
+<nav id="sidebarMenu" class="sidebar d-md-block bg-primary text-white collapse px-4">
+    <div class="sidebar-sticky pt-3 mx-auto">
+        <div class="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
+            <div class="d-flex align-items-center">
+                <div class="user-avatar lg-avatar mr-4">
+                    <img src="{% static 'img/team/profile-picture-3.jpg' %}"
+                         class="card-img-top rounded-circle border-white" alt="Bonnie Green">
+                </div>
+                <div class="d-block">
+                    <h2 class="h6">
+                        {{ request.user.username }}
+                    </h2>
+                    <a href="{% url 'logout' %}" class="btn btn-secondary text-dark btn-xs">
+                        <span class="mr-2"><span class="fas fa-sign-out-alt"></span></span>Sign Out</a>
+                </div>
+            </div>
+            <div class="collapse-close d-md-none">
+                <a href="#sidebarMenu" class="fas fa-times" data-toggle="collapse"
+                   data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="true"
+                   aria-label="Toggle navigation"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" style="width:100%;">
+        <a class="" href="{% url 'home' %}">
+            <img src="{% static 'img/illustrations/Logo.png' %}" alt="Logo" width="40" height="40"
+                 class="d-inline-block align-text-top" style="text-">
+            <p style="font-size: 0.55rem;">MUHAMMAD AL-XORAZMIY <br> NOMIDAGI TOSHKENT AXBOROT <br> TEXNOLOGIYALARI
+                UNIVERSITETI <br> SAMARQAND FILIALI</p>
+        </a>
+    </div>
+    <div class="card ">
+        <img src="{% static 'img/hemis.jpg' %}" class="card-img-top" alt="rasm">
+        <div role="separator" class="dropdown-divider"></div>
+        <a href="{% url 'application_create' %}?admin_selection=1" class="btn btn-primary">Ariza</a>
+    </div>
+    <br>
+    <div class="card">
+        <img src="{% static 'img/hemis.jpg' %}" class="card-img-top" alt="rasm">
+        <div role="separator" class="dropdown-divider"></div>
+        <a href="{% url 'application_create' %}?admin_selection=2" class="btn btn-primary">Ariza</a>
+    </div>
+    <br>
+    <div class="card">
+        <img src="{% static 'img/hemis.jpg' %}" class="card-img-top" alt="rasm">
+        <div role="separator" class="dropdown-divider"></div>
+        <a href="{% url 'application_create' %}?admin_selection=3" class="btn btn-primary">Ariza</a>
+    </div>
+    <br>
+</nav>
