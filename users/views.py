@@ -1,13 +1,15 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate 
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from .forms import RegisterForm, ProfileForm, form_validation_error, ApplicationForm, StudentForm, TeacherForm, BolimForm, HemisForm, KerocontrolForm, LmsForm
+from .forms import RegisterForm, ProfileForm, form_validation_error, ApplicationForm, StudentForm, TeacherForm, \
+    BolimForm, HemisForm, KerocontrolForm, LmsForm
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.views import View
 from .models import Profile, Application, Position, System, Student, Teacher, Bolim, ApplicationCreate
 from django.http import HttpResponse
+
 
 def login_decorator(func):
     return login_required(func, login_url='login')
@@ -16,10 +18,10 @@ def login_decorator(func):
 def home(request):
     return render(request, 'layouts/index.html')
 
+
 @login_decorator
 def dashboard(request):
     return render(request, 'users/dashboard.html')
-
 
 
 class RegisterView(View):
@@ -65,6 +67,7 @@ def login_user(request):
         if user is not None:
             login(request, user)
             messages.success(request, f'Tizimga muvafaqiyatli kirdingiz!')
+
             return redirect('dashboard')
 
     return render(request, 'users/login.html')
@@ -110,9 +113,9 @@ class ProfileView(View):
             messages.success(request, 'Profil muvaffaqiyatli saqlandi')
         else:
             messages.error(request, form_validation_error(form))
-        return redirect('profile_user') 
+        return redirect('profile_user')
 
- 
+
 @login_decorator
 def application_create(request):
     students = StudentForm(request.POST)
@@ -124,9 +127,9 @@ def application_create(request):
 
     appli, __ = Application.objects.get_or_create(user=request.user)
     if request.method == 'POST':
-        forms = ApplicationForm(request.POST, request.FILES, instance=appli) 
-        print(forms.errors)     
-        if forms.is_valid() or students.is_valid() or  teachers.is_valid() or bolims.is_valid() or hemis.is_valid() or kerocontrol.is_valid() or lms.is_valid():
+        forms = ApplicationForm(request.POST, request.FILES, instance=appli)
+        print(forms.errors)
+        if forms.is_valid() or students.is_valid() or teachers.is_valid() or bolims.is_valid() or hemis.is_valid() or kerocontrol.is_valid() or lms.is_valid():
             user_data = forms.cleaned_data.get('user')
             if user_data is not None:
                 appli, created = Application.objects.get_or_create(user=user_data)
@@ -138,9 +141,9 @@ def application_create(request):
                 appli.save()
             forms.save()
             application_create = ApplicationCreate.objects.create(
-                    user=request.user,
-                    application = forms.save(commit=False),
-                )
+                user=request.user,
+                application=forms.save(commit=False),
+            )
             students.save()
             teachers.save()
             bolims.save()
@@ -151,21 +154,19 @@ def application_create(request):
             application_create.application = appli  # O'zgaruvchini yangilaymiz
             application_create.save()
 
-            
-
             messages.success(request, 'Arizangiz muvofiqiyatli adminga yuborildi')
         else:
             messages.error(request, form_validation_error(forms))
-            
+
         return redirect('application_create')
     else:
         forms = ApplicationForm()
         students = StudentForm()
         teachers = TeacherForm()
         bolims = BolimForm()
-    context = {'appli': appli, 'segment': 'application_create', 'forms': forms, 'students': students, 'teachers': teachers, 'bolims': bolims, 'hemis': hemis, 'kero': kerocontrol, 'lms': lms}
+    context = {'appli': appli, 'segment': 'application_create', 'forms': forms, 'students': students,
+               'teachers': teachers, 'bolims': bolims, 'hemis': hemis, 'kero': kerocontrol, 'lms': lms}
     return render(request, 'users/form.html', context=context)
-
 
 
 @login_decorator
@@ -175,3 +176,18 @@ def application_list(request):
     application_create = ApplicationCreate.objects.all()
     context = {'applications': applications, 'application_create': application_create, 'profiles': profiles}
     return render(request, 'users/list.html', context=context)
+
+# @login_required
+# def profilepage(request):
+#     profile = request.user.profile
+#     if request.method == 'POST':
+#         form = ProfileForm(request.POST, request.FILES, instance=profile)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, 'Profil ma\'lumotlaringiz saqlandi.')
+#             return redirect('profile')
+#
+#     else:
+#         form = ProfileForm(instance=profile)
+#
+#     return render(request, 'admins/profile.html', {'form': form, 'profile': profile})

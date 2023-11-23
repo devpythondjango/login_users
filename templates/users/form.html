@@ -1,0 +1,224 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Ariza {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<style>
+    .hidden {
+        display: none;
+    }
+    .hidden1 {
+        display: none;
+    }
+</style>
+<main class="content">
+
+    {% include 'includes/navigation.html' %}
+
+    <div class="py-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <li class="breadcrumb-item"><a href="/"><span class="fas fa-home"></span></a></li>
+                <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Tizim</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ariza</li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-between w-100 flex-wrap">
+            <div class="mb-3 mb-lg-0">
+                <h1 class="h4">Forms</h1>
+                <p class="mb-0">Dozens of reusable components built to provide buttons, alerts, popovers, and more.</p>
+            </div>
+            <div>
+                <a href=""
+                   class="btn btn-outline-gray"><i class="far fa-question-circle mr-1"></i> Forms Docs</a>
+            </div>
+        </div>
+    </div>
+
+    <h2>Yangi ariza</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="first_name">Ism:</label>
+                        <input name="first_name" class="form-control" id="first_name" type="text"placeholder="Ismizni kiritng" value="{{ appli.user.first_name}}" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="last_name">Familiya</label>
+                        <input name="last_name" class="form-control" id="last_name" type="text" placeholder="Familiyangizni kiritng" value="{{ appli.user.last_name }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label>Sharf:</label>
+                    <input type="text" class="form-control" name="surname" placeholder="Sharf">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="birthday">Tug'ilgan kuningiz</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><span class="far fa-calendar-alt"></span></span>
+                            <input name="birthday" data-datepicker="" class="form-control" id="birthday" type="text" placeholder="dd/mm/yyyy" value="{{ appli.birthday|date:'m/d/Y'|default:'' }}" required>
+                            </div>
+                </div>
+                <div class="col-md-3">
+                    <label>Passport seriyasi:</label>
+                    <input type="text" class="form-control" name="passport_serial" placeholder="Passport seria">
+                </div>
+                <div class="col-md-3">
+                    <label>Passport rasm:</label>
+                    <input type="file" class="form-control" accept="image/*" name="passport_image"
+                           placeholder="Passport rasm">
+                </div>
+                <div class="col-md-3">
+                    <label>Shaxsiy rasm:</label>
+                    <input type="file" class="form-control" accept="image/*" name="image" placeholder="rasm">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="phone">Telefon</label>
+                    <input name="phone" class="form-control" id="phone" type="number" placeholder="+998901234567" value="{{ appli.phone }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label for="email">Email</label>
+                    <input name="email" class="form-control" id="email" type="email" placeholder="tatu@sf.com" value="{{ appli.user.email }}" required>
+                </div>
+            </div>
+            <br>
+            <div class="col row">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <label for="choice">Lavozim:</label>
+                        {{forms.position}}
+                    </div><br>
+                    <div id="div1" class="row hidden ">
+                        <div class="col-md-12">
+                            <label for="">Fakultet</label>
+                            {{students.faculty}}
+                        </div><br>
+                        <div class="col-md-12">
+                            <label for="">Kurs</label>
+                            {{students.kurs}}
+                        </div><br>
+                        <div class="col-md-12">
+                            <label for="">Guruh</label>
+                            {{students.group}}
+                        </div><br>
+                        <div class="col-md-12">
+                            <label for="">Ta'lim shakli</label>
+                            {{students.talim_shakli}}
+                        </div>
+                    </div>
+                    <div id="div2" class="hidden">
+                        <div class="col-md-12">
+                            <label for="">Fakultet</label>
+                        {{teachers.faculty}}
+                        </div><br>
+                        <div class="col-md-12">
+                            <label for="">Kafedra</label>
+                            {{teachers.kafedra}}
+                        </div><br>
+                        <div class="col-md-12">
+                            <label for="">2-Lavozim</label>
+                            {{teachers.name}}
+                        </div>
+                    </div>
+                    <div id="div3" class="hidden row">
+                        <div class="col-md-12">
+                            <label for="">Bo'lim nomi</label>
+                            {{bolims.positionone}}
+                        </div><br>
+                        <div class="col-md-12">
+                            <label for="">Lavozim</label>
+                            {{bolims.name}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <label for="choice">Tizim:</label>
+                        {{ forms.system }}
+                    </div><br>
+                    <div id="div_1" class="hidden1 row">
+                        <div class="col-md-12">
+                            <label for="">Hemis ID/login</label>
+                            {{hemis.hemis_id}}
+                        </div>
+                    </div>
+                    <div id="div_2" class="hidden1 row">
+                        <div class="col-md-12">
+                            <label for="">Kero Control login</label>
+                            {{kero.name}}
+                        </div><br>
+                        <div class="col-md-12">
+                            <label for="">Bino</label>
+                            {{kero.building}}
+                        </div>
+                    </div>
+                    <div id="div_3" class="hidden1 row">
+                        <div class="col-md-12">
+                            <label for="">LMS ID</label>
+                            {{lms.lms_id}}
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="col-md-12">
+                    <label for="id_text">Murojaat mazmuni to'liq xolda</label>
+                    <textarea name="text" class="form-control" id="id_text" style="height:155px"></textarea>
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="save btn btn-secondary">Save</button>
+        </div>
+    </form>
+
+
+</main>
+
+<script>
+    function showDiv(select) {
+        var selectedOption = select.value;
+        console.log(selectedOption)
+        // Hide all divs
+        for (var i = 1; i <= 3; i++) {
+            var divId = 'div' + i;
+            console.log(divId)
+            document.getElementById(divId).classList.add('hidden');
+        }
+
+        // Show the selected div
+        if (selectedOption !== '') {
+            var selectedDivId = 'div' + selectedOption;
+            document.getElementById(selectedDivId).classList.remove('hidden');
+        }
+    }
+
+    function showDiv1(select) {
+        var selectedOption1 = select.value;
+
+        // Hide all divs
+        for (var i = 1; i <= 3; i++) {
+            var divId = 'div_' + i;
+            console.log(divId)
+            document.getElementById(divId).classList.add('hidden1');
+        }
+
+        // Show the selected div
+        if (selectedOption1 !== '') {
+            var selectedDivId = 'div_' + selectedOption1;
+            document.getElementById(selectedDivId).classList.remove('hidden1');
+        }
+    }
+</script>
+{% endblock content %}
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -4,6 +4,8 @@ from .models import (Profile, Faculty, Kafedra, Position,
                      System, Hemis, Lms, KeroControl, Building,
                      Application, ApplicationCreate, PositionOne)
 
+from .models import Profile
+
 
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'is_hemis_admin', 'is_moodle_admin', 'is_kerocontrol_admin')
@@ -27,3 +29,5 @@ admin.site.register(Building)
 admin.site.register(Application)
 admin.site.register(ApplicationCreate)
 admin.site.register(PositionOne)
+
+

@@ -1,4 +1,5 @@
 from django.urls import path
+
 from .views import home, login_user, logout_user, RegisterView, admins, login_admin
 from .views import ProfileView, application_create, dashboard, application_list
 
@@ -19,3 +20,6 @@ urlpatterns = [
     path('application/list/', application_list, name='application_list'),
 
 ]
+
+
+

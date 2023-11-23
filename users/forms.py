@@ -4,6 +4,9 @@ from django.contrib.auth.forms import UserCreationForm
 from users.models import Profile, Application, Student, Teacher, Bolim, Hemis, KeroControl, Lms, Faculty, Kafedra, Position, Talimshakli, PositionOne, System, Building
 
 
+
+
+
 class ArizaForm(forms.Form):
     selected_admin = forms.ChoiceField(choices=[
         ('hemis', 'Hemis'),
@@ -57,6 +60,7 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2']
 
+
 class ProfileForm(forms.ModelForm):
     first_name = forms.CharField(max_length=255)
     last_name = forms.CharField(max_length=255)
@@ -83,8 +87,7 @@ class ProfileForm(forms.ModelForm):
 #     class Meta:
 #         model = Profile
 #         fields = '__all__'
-#         exclude = ['user']
-
+#         exclude = ['user'
 
 def form_validation_error(form):
     msg = ""

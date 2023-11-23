@@ -10,3 +10,4 @@ def validate_passport_serial(serial):
     if first_letter not in 'ABCD':
         raise ValidationError('Pasport seriyasining harfi noto\'g\'ri')
     return serial
+

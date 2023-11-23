@@ -21,5 +21,9 @@ def get_profile():
     with closing(connection.cursor()) as cursor:
         cursor.execute("""SELECT is_admin from users_profile""")
         profile = dictfetchall(cursor)
+<<<<<<< HEAD
         return profile
 
+=======
+        return profile
+>>>>>>> origin/main

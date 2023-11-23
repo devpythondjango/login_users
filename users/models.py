@@ -213,7 +213,7 @@ class ApplicationCreate(models.Model):
         # Foydalanuvchiga xabar yozish
         if self.user and self.body:
             message_body = f"Sizning arizangizni qabul qildik: {self.body}"
-            admin_message = AdminMessage.objects.create(user=self.user, body=message_body)
+            # admin_message = AdminMessage.objects.create(user=self.user, body=message_body)
 
         # Faqat admin yozishi uchun
         if self.user and self.body:
