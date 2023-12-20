@@ -32055,7 +32055,7 @@ label {
     .navbar-nav .dropdown-menu-center {
         left: 50%;
         transform: translateX(-50%);
-    }
+    } 
 
     .navbar-nav .dropdown-menu.show,
   .navbar-nav .dropdown-megamenu.show,
@@ -32120,7 +32120,7 @@ label {
         box-shadow: none;
         width: 100%;
     }
-
+ 
     .navbar-nav .dropdown-menu .media svg {
         width: 30px;
     }
@@ -32210,7 +32210,7 @@ label {
 .section-header {
     position: relative;
     padding-top: 9rem;
-    padding-bottom: 3rem;
+    padding-bottom: 2rem;
 }
 
 @media (min-width: 576px) {

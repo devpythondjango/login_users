@@ -1,8 +1,7 @@
 {% extends "layouts/base-fullscreen.html" %}
 {% load static %}
-{% block title %} Login {% endblock %}
+{% block title %} Kirish {% endblock %}
 
-<!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block body_class %} bg-soft {% endblock body_class %}
@@ -11,81 +10,71 @@
 
 <main>
 
-    <!-- Section -->
     <section class="vh-lg-100 d-flex align-items-center">
         <div class="container">
             <div class="row justify-content-center form-bg-image"
-                 data-background="{% static 'img/illustrations/tatu.jpg' %}">
+                 data-background="{% static 'img/pages/tatu1.jpg' %}">
                 <div class="col-12 d-flex align-items-center justify-content-center">
                     <div class="signin-inner my-3 my-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
 
                         <div class="text-center text-md-center mb-4 mt-md-0">
-                            <h1 class="mb-0 h3">
-                                Django Sign IN
+                            <h1 class="mb-0 h4">
+                                Toshkent axborat texnalogiyalari Universiteti Samarqand filiali
                             </h1>
                             <br/>
                             <p>
                                 {% if msg %}
                                 {{ msg | safe }}
                                 {% else %}
-                                Add your credentials
+                                <!-- Your credentials message -->
                                 {% endif %}
                             </p>
                         </div>
 
-                        <form method="post" action="" class="mt-4">
-
+                        <form method="post" action="{% url 'login' %}" class="mt-4" id="loginForm">
                             {% csrf_token %}
-
-                            <!-- Form -->
                             <div class="form-group mb-4">
                                 <label for="email">Username</label>
                                 <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon1"><span
-                                            class="fas fa-user-circle"></span></span>
+                                    <span class="input-group-text" id="basic-addon1"><span class="fas fa-user-circle"></span></span>
                                     <input class="form-control" type="username" name="username" placeholder="username">
                                 </div>
                             </div>
-                            <!-- End of Form -->
-                            <div class="form-group">
-                                <!-- Form -->
-                                <div class="form-group mb-4">
-                                    <label for="password">Your Password</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text" id="basic-addon2"><span
-                                                class="fas fa-unlock-alt"></span></span>
-                                        <input class="form-control" type="password" name="password"
-                                               placeholder="Password">
-                                    </div>
-                                </div>
-                                <!-- End of Form -->
-
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
-                                        <label class="form-check-label" for="defaultCheck5">
-                                            Remember me
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <a href="{% url 'register' %}" class="small text-right">Register</a>
-                                    </div>
+                            <div class="form-group mb-4">
+                                <label for="password">Parol</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon2"><span class="fas fa-unlock-alt"></span></span>
+                                    <input class="form-control" type="password" name="password" placeholder="Parol">
                                 </div>
                             </div>
-                            <button type="submit" name="login" class="btn btn-block btn-primary">Sign IN</button>
+                            <div class="form-group" id="captchaContainer" {% if form.captcha.field.required %} style="display: block;" {% else %} style="display: none;" {% endif %}>
+                                <label for="{{ form.captcha.id_for_label }}">Captcha:</label>
+                                {{ form.captcha }}
+                            </div>
+                            <br>
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
+                                    <label class="form-check-label" for="defaultCheck5">
+                                        Meni eslab qolish
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <a href="{% url 'register' %}" class="small text-right">Ro'yxatdan o'tish</a>
+                                </div>
+                            </div>
+                            <button type="submit" name="login" class="btn btn-block btn-primary" onclick="loadCaptcha()">Kirish</button>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <div class="form-check">
                                         <a href="" class="small text-right"></a>
                                     </div>
                                     <div class="form-check">
-                                        <a href="" class="small text-right">Forgot password</a>
+                                        <a href="" class="small text-right">Parolni unutdingizmi?</a>
                                     </div>
                                 </div>
                             </div>
                         </form>
-
-
                     </div>
                 </div>
             </div>
@@ -94,7 +83,37 @@
 
 </main>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    function loadCaptcha() {
+        $.ajax({
+            url: "{% url 'captcha_image' %}",
+            success: function (data) {
+                $("#captchaContainer").html(data);
+                $("#captchaContainer").show();
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        loadCaptcha();
+        $("#loginForm").submit(function (event) {
+            var form = $(this);
+            var username = form.find("input[name='username']").val();
+            var password = form.find("input[name='password']").val();
+            if (username && password) {
+                $.ajax({
+                    url: "{% url 'captcha_image' %}",
+                    success: function (data) {
+                        $("#captchaContainer").html(data);
+                        $("#captchaContainer").show();
+                    }
+                });
+            }
+        });
+    });
+</script>
+
 {% endblock content %}
 
-<!-- Specific Page JS goes HERE  -->
 {% block javascripts %}{% endblock javascripts %}

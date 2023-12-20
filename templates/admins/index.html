@@ -1,271 +1,252 @@
-{% extends 'admins/base.html' %}
+{% extends "layouts/base1.html" %}
+
 {% load static %}
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+
 {% block content %}
-<div class="wrapper">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <main class="content">
 
-    <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="{% static 'admin/dist/img/AdminLTELogo.png' %}" alt="AdminLTELogo" height="60" width="60">
-    </div>
+        {% include 'includes/navigation1.html' %}
 
-    <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-        <!-- Left navbar links -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
-            </li>
-        </ul>
-
-        <!-- Right navbar links -->
-        <ul class="navbar-nav ml-auto">
-            <!-- Navbar Search -->
-            <li class="nav-item">
-                <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                    <i class="fas fa-search"></i>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+            <!-- <div class="btn-toolbar dropdown">
+                <a href="{% url 'application_create' %}" class="btn btn-primary btn-sm mr-2 dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                    <span class="fas fa-plus mr-2"></span>Ariza
                 </a>
-                <div class="navbar-search-block">
-                    <form class="form-inline">
-                        <div class="input-group input-group-sm">
-                            <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                   aria-label="Search">
-                            <div class="input-group-append">
-                                <button class="btn btn-navbar" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </li>
-
-            <!-- Messages Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-comments"></i>
-                    <span class="badge badge-danger navbar-badge">3</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="{% static 'admin/dist/img/user1-128x128.jpg' %}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Brad Diesel
-                                    <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">Call me whenever you can...</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="{% static 'admin/dist/img/user8-128x128.jpg' %}" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    John Pierce
-                                    <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">I got your message bro</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <!-- Message Start -->
-                        <div class="media">
-                            <img src="dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                            <div class="media-body">
-                                <h3 class="dropdown-item-title">
-                                    Nora Silvester
-                                    <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                </h3>
-                                <p class="text-sm">The subject goes here</p>
-                                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                            </div>
-                        </div>
-                        <!-- Message End -->
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                </div>
-            </li>
-            <!-- Notifications Dropdown Menu -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    <i class="far fa-bell"></i>
-                    <span class="badge badge-warning navbar-badge">15</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-item dropdown-header">15 Notifications</span>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-envelope mr-2"></i> 4 new messages
-                        <span class="float-right text-muted text-sm">3 mins</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-users mr-2"></i> 8 friend requests
-                        <span class="float-right text-muted text-sm">12 hours</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item">
-                        <i class="fas fa-file mr-2"></i> 3 new reports
-                        <span class="float-right text-muted text-sm">2 days</span>
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="{% url 'logout' %}" >
-            <li class="nav-item">
-                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                    <i class="fas fa-expand-arrows-alt"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                    <i class="fas fa-th-large"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <!-- /.navbar -->
-
-    {% include 'admins/sidebar.html' %}
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">AdminLTE</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Profile</li>
-                        </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
+            </div> -->
+            <!-- <div class="btn-group">
+                <button type="button" class="btn btn-sm btn-outline-primary">Share</button>
+                <button type="button" class="btn btn-sm btn-outline-primary">Export</button>
+            </div> -->
         </div>
-        <!-- /.content-header -->
-
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                <!-- Small boxes (Stat box) -->
-                <div class="row">
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-info">
-                            <div class="inner">
-                                <h3>150</h3>
-
-                                <p>New Orders</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-bag"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        <div class="row justify-content-md-center">
+            <div class="col-12 mb-4"> 
+                <div class="card bg-yellow-alt shadow-sm">
+                    <div class="card-header d-flex flex-row align-items-center flex-0">
+                        <div class="d-block">
+                            <div class="h5 font-weight-normal mb-2">Arizalar statistikasi</div>
+                            <!-- <h2 class="h3">$10,567</h2>
+                            <div class="small mt-2">
+                                <span class="font-weight-bold mr-2">Yesterday</span>
+                                <span class="fas fa-angle-up text-success"></span>
+                                <span class="text-success font-weight-bold">10.57%</span>
+                            </div> -->
+                        </div>
+                        <div class="d-flex ml-auto">
+                            <a href="#" class="btn btn-secondary text-dark btn-sm mr-2">Oy</a>
+                            <a href="#" class="btn btn-primary btn-sm mr-3">Hafta</a>
                         </div>
                     </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-success">
-                            <div class="inner">
-                                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                                <p>Bounce Rate</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-stats-bars"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                        </div>
+                    <div class="card-body p-2">
+                      <canvas id="myChart13" width="600" height="200"></canvas>
                     </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-warning">
-                            <div class="inner">
-                                <h3>44</h3>
-
-                                <p>User Registrations</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-person-add"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-danger">
-                            <div class="inner">
-                                <h3>65</h3>
-
-                                <p>Unique Visitors</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-pie-graph"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-lg-3 col-6">
-                        <!-- small box -->
-                        <div class="small-box bg-warning">
-                            <div class="inner">
-                                <h3>44</h3>
-
-                                <p>User Registrations</p>
-                            </div>
-                            <div class="icon">
-                                <i class="ion ion-person-add"></i>
-                            </div>
-                            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-                        </div>
-                    </div>
-
-
+                    
                 </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-4 mb-4">
+                <div class="card border-light shadow-sm">
+                    <div class="card-body">
+                        <div class="row d-block d-xl-flex align-items-center">
+                            <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                <div class="icon icon-shape icon-md icon-shape-success rounded mr-4 mr-sm-0"><span class="fas fa-chart-line"></span></div>
+                                <div class="d-sm-none">
+                                    <h2 class="h5">Hemis</h2>
+                                    <h3 class="mb-1">345,678</h3>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-7 px-xl-0">
+                                <div class="d-none d-sm-block">
+                                    <h2 class="h5">Hemis</h2>
+                                    <h3 class="mb-1">{{hemis}}k</h3>
+                                </div>
+                                <!-- <small>Feb 1 - Apr 1,  <span class="icon icon-small"><span class="fas fa-globe-europe"></span></span> WorldWide</small>
+                                <div class="small mt-2">
+                                    <span class="fas fa-angle-up text-success"></span>
+                                    <span class="text-success font-weight-bold">18.2%</span> Since last month
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="col-12 col-sm-6 col-xl-4 mb-4">
+                <div class="card border-light shadow-sm">
+                    <div class="card-body">
+                        <div class="row d-block d-xl-flex align-items-center">
+                            <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                <div class="icon icon-shape icon-md icon-shape-secondary rounded mr-4"><span class="fas fa-chart-line"></span></div>
+                                <div class="d-sm-none">
+                                    <h2 class="h5">LMS</h2>
+                                    <h3 class="mb-1">43,594</h3>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-7 px-xl-0">
+                                <div class="d-none d-sm-block">
+                                    <h2 class="h5">LMS</h2>
+                                    <h3 class="mb-1">{{lms}}k</h3>
+                                </div>
+                                <!-- <small>Feb 1 - Apr 1,  <span class="icon icon-small"><span class="fas fa-globe-europe"></span></span> Worldwide</small>
+                                <div class="small mt-2">
+                                    <span class="fas fa-angle-up text-success"></span>
+                                    <span class="text-success font-weight-bold">28.2%</span> Since last month
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
-        </section>
-        <!-- /.content -->
-    </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-        <strong>Copyright &copy; 2020-2023 <a href="#">Devpy</a>.</strong>
-        Shavkat Joraboyev
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 0.0.1
+            </div>
+            <div class="col-12 col-sm-6 col-xl-4 mb-4">
+                <div class="card border-light shadow-sm">
+                    <div class="card-body">
+                        <div class="row d-block d-xl-flex align-items-center">
+                            <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                <div class="icon icon-shape icon-md icon-shape-info rounded mr-4 mr-sm-0"><span class="fas fa-chart-line"></span></div>
+                                <div class="d-sm-none">
+                                    <h2 class="h5">Kero control</h2>
+                                    <h3 class="mb-1">345,678</h3>
+                                </div>
+                            </div>
+                            <div class="col-12 col-xl-7 px-xl-0">
+                                <div class="d-none d-sm-block">
+                                    <h2 class="h5">Kero control</h2>
+                                    <h3 class="mb-1">{{kero}}k</h3>
+                                </div>
+                                <!-- <small>Feb 1 - Apr 1,  <span class="icon icon-small"><span class="fas fa-globe-europe"></span></span> WorldWide</small>
+                                <div class="small mt-2">
+                                    <span class="fas fa-angle-up text-success"></span>
+                                    <span class="text-success font-weight-bold">18.2%</span> Since last month
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-4 mb-4">
+                <div class="card border-light shadow-sm">
+                    <div class="card-body">
+                        <div class="row d-block d-xl-flex align-items-center">
+                            <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                <canvas id="myPlot14" style="width: 619px; max-width: 700px; display: block; height: 309px;" width="619" height="309" class="chartjs-render-monitor"></canvas>
+                            </div>
+                            <div class="col-12 col-xl-7 px-xl-0">
+                                <h2 class="h5 mb-3">Arizalr foizi</h2>
+                                <h6 class="font-weight-normal text-gray"><span class="icon w-20 icon-xs icon-success mr-1"><span class="fas fa-desktop"></span></span> Hemis <a href="#" class="h6">{{hemis_foiz}}</a></h6>
+                                <h6 class="font-weight-normal text-gray"><span class="icon w-20 icon-xs icon-secondary mr-1"><span class="fas fa-desktop"></span></span> Lms <a href="#" class="h6">{{lms_foiz}}</a></h6>
+                                <h6 class="font-weight-normal text-gray"><span class="icon w-20 icon-xs icon-info mr-1"><span class="fas fa-desktop"></span></span> Kero control <a href="#" class="h6">{{kero_foiz}}</a></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </footer>
+        
+        
+    </main>
+   
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-</div>
-{%  endblock content %}
+{% endblock content %}
+
+{% block javascripts %}
+<script>
+  // Data values
+  var xValues = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "iyul", "Avgust", "Sentyabr", "Oktiyabr","Noyabr", "Dekabr"];
+  var hemis = [{{oy_1_1}}, {{oy_2_1}},{{oy_3_1}},{{oy_4_1}},{{oy_5_1}},{{oy_6_1}},{{oy_7_1}},{{oy_8_1}},{{oy_9_1}},{{oy_10_1}},{{oy_11_1}},{{oy_12_1}}];
+
+  var lms = [{{oy_1_2}}, {{oy_2_2}},{{oy_3_2}},{{oy_4_2}},{{oy_5_2}},{{oy_6_2}},{{oy_7_2}},{{oy_8_2}},{{oy_9_2}},{{oy_10_2}},{{oy_11_2}},{{oy_12_2}}];
+
+  var kero = [{{oy_1_3}}, {{oy_2_3}},{{oy_3_3}},{{oy_4_3}},{{oy_5_3}},{{oy_6_3}},{{oy_7_3}},{{oy_8_3}},{{oy_9_3}},{{oy_10_3}},{{oy_11_3}},{{oy_12_3}}];
+
+  new Chart("myChart13", {
+      type: "line",
+      data: {
+          labels: xValues,
+          datasets: [ 
+              { 
+                  data: hemis,
+                  borderColor: "green",
+                  label: 'Hemis',
+                  fill: false
+              },
+              { 
+                  data: lms,
+                  borderColor: "red",
+                  label: 'Lms',
+                  fill: false
+              },
+              { 
+                  data: kero,
+                  borderColor: "blue",
+                  label: 'Kero',
+                  fill: false
+              }
+          ]
+      },
+      options: {
+          title: {
+              display: true,
+              text: 'Your Chart Title'
+          },
+          legend: {
+              display: true
+          }
+      }
+  });
+</script>
+<script>
+    var yValues = [{{hemis}}, {{lms}}, {{kero}}];
+    var barColors = [
+          "#1e7145",
+          "#e8c3b9",
+          "#2b5797",
+        ];
+        
+        var chart = new Chart("myPlot14", {
+          type: "pie",
+          data: {
+            
+            datasets: [{
+              backgroundColor: barColors,
+              data: yValues
+            }]
+          },
+          options: {
+            title: {
+              display: true,
+            }
+          }
+        });
+        </script>
+<script>
+    var chart13 = new Chart("myPlot13", {
+      type: 'bar',
+      data: {
+        labels: ["Hemis","Lms","Kero"],
+        datasets: [{
+          backgroundColor:["green","orange","blue"],
+          data: [{{hemis}}, {{lms}}, {{kero}}]
+        }]
+      },
+      options: {
+        legend: {display: false},
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        },
+            title: {
+          display: true,
+          text: "World Wide Wine Production 2018",
+          fontSize: 16
+        }
+    
+      }
+    });
+    </script>
+{% endblock javascripts %}

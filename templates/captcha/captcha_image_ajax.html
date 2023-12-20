@@ -1,0 +1,6 @@
+<!-- templates/captcha/captcha_image_ajax.html -->
+{% load static %}
+
+<img src="{{ image_url }}" alt="Captcha Image">
+<input type="hidden" name="captcha_0" value="{{ key }}">
+<input type="text" name="captcha_1" required>
