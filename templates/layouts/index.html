@@ -54,13 +54,20 @@
 
             {% if request.user.is_authenticated %}
             <div class="d-flex align-items-center ml-auto">
-                <a href="{% url 'application_list' %}" class="btn btn-secondary text-dark mr-md-3">
+                {% if request.user.user_profile.is_users %}
+                <a href="{% url 'user_profile' %}" class="btn btn-secondary text-dark mr-md-3">
                     <span class="fas fa-user mr-2"></span>
                     Profile
                 </a>
+                {% elif request.user.admin_profile.is_admin %}
+                <a href="{% url 'admin_profile' %}" class="btn btn-secondary text-dark mr-md-3">
+                    <span class="fas fa-user mr-2"></span>
+                    Profile
+                </a>
+                {% endif %}
                 <a href="{% url 'logout' %}"
                    class="btn btn-outline-soft d-none d-lg-block">
-                    <span class="fas fa-sign-out-alt mr-2"></span> Logout</a>
+                    <span class="fas fa-sign-out-alt mr-2"></span> Chiqish</a>
                 <button class="navbar-toggler ml-2" type="button" data-toggle="collapse" data-target="#navbar_global"
                         aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -69,7 +76,7 @@
             {% else %}
             <a href="{% url 'login' %}"
                class="btn btn-outline-soft d-none d-lg-block">
-                <span class="fas fa-sign-out-alt mr-2"></span> Login</a>
+                <span class="fas fa-sign-out-alt mr-2"></span>Kirish</a>
             <button class="navbar-toggler ml-2" type="button" data-toggle="collapse" data-target="#navbar_global"
                     aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

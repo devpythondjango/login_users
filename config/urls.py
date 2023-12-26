@@ -24,12 +24,15 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('users.urls')),
+    path('', include("app.urls")),
     path('auth/', include('authn.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('captcha/', include('captcha.urls')),
+
     # path('axes/', include('axes.urls', namespace='axes')),
 
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'authn.apps.AuthnConfig',
     'dashboard',
     'captcha',
+    'app',
 ]
 
 MIDDLEWARE = [
@@ -134,7 +135,23 @@ LOGIN_URL = '/login/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CAPTCHA_LENGTH = 5
+CAPTCHA_LENGTH = 4
+
+
+# RECAPTCHA_PUBLIC_KEY = '6LeSVjgpAAAAAEN9RO0iRa2fbAb6nFBLErm8eXjQ'
+# RECAPTCHA_PRIVATE_KEY = '6LeSVjgpAAAAAOEzDYG3UxdzEgxM6XgBeLarrejK'
+
+
+RECAPTCHA_PUBLIC_KEY = '6LdjSzkpAAAAAMeKrs3HOS9XOfjR91uXSMoMqrb3'
+RECAPTCHA_PRIVATE_KEY = '6LdjSzkpAAAAAAPY6X8rtq6xmJOp4yVcK5RzLPRP0'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'devpysh@gmail.com'
+EMAIL_HOST_PASSWORD = 'vinluukacapyqrlw'
+
 
 #
 # RECAPTCHA_PUBLIC_KEY = '6LfRlSwpAAAAAHGobkyn3ydW61fzskp6xAxXVcKf'

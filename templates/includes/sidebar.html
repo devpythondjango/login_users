@@ -11,7 +11,7 @@
                         {{ request.user.username }}
                     </h2>
                     <a href="{% url 'logout' %}" class="btn btn-secondary text-dark btn-xs">
-                        <span class="mr-2"><span class="fas fa-sign-out-alt"></span></span>Logout</a>
+                        <span class="mr-2"><span class="fas fa-sign-out-alt"></span></span>Chiqish</a>
                 </div>
             </div>
             <div class="collapse-close d-md-none">
@@ -67,13 +67,13 @@
             <li class="nav-item  {% if 'user_profile' in segment %} active {% endif %}">
                 <a href="{% url 'user_profile' %}" class="nav-link">
                     <span class="sidebar-icon"><span class="fas fa-cog"></span></span>
-                    <span>Settings</span>
+                    <span>Sozlamalar</span>
                 </a>
             </li>
             <li class="nav-item">
                 <a href="{% url 'logout' %}" class="nav-link">
                     <span class="sidebar-icon"><span class="fas fa-sign-out-alt text-danger"></span></span>
-                    <span>Logout</span>
+                    <span>Chiqish</span>
                 </a>
             </li>
         </ul>

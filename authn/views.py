@@ -1,14 +1,15 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, LoginForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.views import View
 from users.models import Profile
+from django.contrib.auth.views import PasswordResetView
+from django.urls import reverse_lazy
+from django.template import loader
 from django.http import HttpResponse
-from django.template.loader import render_to_string
-from captcha.helpers import captcha_image_url
-from captcha.models import CaptchaStore
+from django import template
 
 
 def login_decorator(func):
@@ -49,93 +50,60 @@ class RegisterView(View):
 
 def login_admin(request):
     if request.POST:
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(request, password=password, username=username)
-
-        if user is not None:
-            login(request, user)
-            messages.success(request, f'Tizimga muvafaqiyatli kirdingiz!')
-            return redirect('index')
-        else:
-            messages.warning(request, f'Username yoki parol xato')
-
-    return render(request, 'registration/login.html')
-
-
-def login_user(request):
-    unsuccessful_attempts = request.session.get('unsuccessful_attempts', 0)
-
-    if request.method == 'POST':
         form = LoginForm(request.POST)
-
         if form.is_valid():
-            if unsuccessful_attempts >= 2:
-                form.fields['captcha'].required = True
-                if not form.cleaned_data.get('captcha', False):
-                    form.add_error('captcha', 'Noto‘g‘ri captcha. Iltimos, qaytadan urinib ko‘ring.')
-                    request.session['unsuccessful_attempts'] = unsuccessful_attempts + 1
-                    return render(request, 'login_template.html', {'form': form})
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            captcha = form.cleaned_data.get('captcha', None)
+            user = authenticate(request, password=password, username=username, captcha=captcha)
 
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, password=password, username=username)
-            if user is not None:
-                login(request, user)
-                messages.success(request, f'Tizimga muvafaqiyatli kirdingiz!')
-
-                return redirect('application_list')
-            else:
-                messages.warning(request, f'Username yoki parol xato')
-
-            request.session['unsuccessful_attempts'] = 0
-
-            return redirect('application_list')
+            if user.admin_profile.is_admin:
+                if user is not None:
+                    login(request, user)
+                    messages.success(request, f'Tizimga muvafaqiyatli kirdingiz!')
+                    return redirect('index')
+                else:
+                    messages.warning(request, f'Username yoki parol xato')
         else:
-            request.session['unsuccessful_attempts'] = unsuccessful_attempts + 1
+            messages.warning(request, f'Forma noto\'g\'ri to\'ldirilgan')
     else:
         form = LoginForm()
 
-    return render(request,  'users/login.html', {'form': form})
+    return render(request, 'registration/login.html', {'form': form})
 
 
-def captcha_image(request):
-    if request.headers.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
-        new_captcha_key = CaptchaStore.generate_key()
-        to_json_response = {
-            'key': new_captcha_key,
-            'image_url': captcha_image_url(new_captcha_key),
-        }
-        return HttpResponse(render_to_string('users/captcha_image_ajax.html', to_json_response))
+def login_user(request):
+    if request.POST:
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            captcha = form.cleaned_data.get('captcha', None)
+            user = authenticate(request, password=password, username=username, captcha=captcha)
+            if user.user_profile.is_users:
+                if user is not None:
+                    login(request, user)
+                    messages.success(request, f'Tizimga muvafaqiyatli kirdingiz!')
+
+                    return redirect('application_list')
+                else:
+                    messages.warning(request, f'Username yoki parol xato')
+
+        else:
+            messages.warning(request, f'Forma noto\'g\'ri to\'ldirilgan')
     else:
-        return HttpResponse(status=400)
+        form = LoginForm()
 
+    return render(request, 'users/login.html', {'form': form})
 
-# def login_user(request):
-#     if request.POST:
-#         form = LoginForm(request.POST)
-#         if form.is_valid():
-#             username = form.cleaned_data['username']
-#             password = form.cleaned_data['password']
-#             user = authenticate(request, password=password, username=username)
-#
-#             if user is not None:
-#                 login(request, user)
-#                 messages.success(request, f'Tizimga muvafaqiyatli kirdingiz!')
-#
-#                 return redirect('application_list')
-#             else:
-#                 messages.warning(request, f'Username yoki parol xato')
-#         else:
-#             messages.warning(request, f'Forma noto\'g\'ri to\'ldirilgan')
-#         print(form.errors)
-#     else:
-#         form = LoginForm()
-#
-#     return render(request, 'users/login.html', {'form':form})
-#
 
 @login_decorator
 def logout_user(request):
     logout(request)
     return redirect("login")
+
+
+class YourCustomPasswordResetView(PasswordResetView):
+    success_url = reverse_lazy('password_reset_done')
+    email_template_name = 'registration/your_custom_password_reset_email_template.html'
+

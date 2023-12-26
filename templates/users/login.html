@@ -31,27 +31,31 @@
                             </p>
                         </div>
 
-                        <form method="post" action="{% url 'login' %}" class="mt-4" id="loginForm">
+                        <form method="post" action="{% url 'login' %}" class="mt-4" id="loginForm"
+                              onsubmit="return validateForm()">
                             {% csrf_token %}
+
                             <div class="form-group mb-4">
                                 <label for="email">Username</label>
                                 <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon1"><span class="fas fa-user-circle"></span></span>
+                                    <span class="input-group-text" id="basic-addon1"><span
+                                            class="fas fa-user-circle"></span></span>
                                     <input class="form-control" type="username" name="username" placeholder="username">
                                 </div>
                             </div>
                             <div class="form-group mb-4">
                                 <label for="password">Parol</label>
                                 <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon2"><span class="fas fa-unlock-alt"></span></span>
+                                    <span class="input-group-text" id="basic-addon2"><span
+                                            class="fas fa-unlock-alt"></span></span>
                                     <input class="form-control" type="password" name="password" placeholder="Parol">
                                 </div>
                             </div>
-                            <div class="form-group" id="captchaContainer" {% if form.captcha.field.required %} style="display: block;" {% else %} style="display: none;" {% endif %}>
-                                <label for="{{ form.captcha.id_for_label }}">Captcha:</label>
+                            <div id="captchaContainer" style="display: none;">
                                 {{ form.captcha }}
                             </div>
-                            <br>
+
+                            <br><br>
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
@@ -63,14 +67,14 @@
                                     <a href="{% url 'register' %}" class="small text-right">Ro'yxatdan o'tish</a>
                                 </div>
                             </div>
-                            <button type="submit" name="login" class="btn btn-block btn-primary" onclick="loadCaptcha()">Kirish</button>
+                            <button type="submit" name="login" class="btn btn-block btn-primary" onclick="validateForm()" id="btn">Kirish</button>
                             <div class="form-group">
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <div class="form-check">
                                         <a href="" class="small text-right"></a>
                                     </div>
                                     <div class="form-check">
-                                        <a href="" class="small text-right">Parolni unutdingizmi?</a>
+                                        <a href="{% url 'password_reset' %}" class="small text-right">Parolni unutdingizmi?</a>
                                     </div>
                                 </div>
                             </div>
@@ -82,37 +86,25 @@
     </section>
 
 </main>
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    function loadCaptcha() {
-        $.ajax({
-            url: "{% url 'captcha_image' %}",
-            success: function (data) {
-                $("#captchaContainer").html(data);
-                $("#captchaContainer").show();
-            }
-        });
-    }
+function validateForm() {
 
-    $(document).ready(function () {
-        loadCaptcha();
-        $("#loginForm").submit(function (event) {
-            var form = $(this);
-            var username = form.find("input[name='username']").val();
-            var password = form.find("input[name='password']").val();
-            if (username && password) {
-                $.ajax({
-                    url: "{% url 'captcha_image' %}",
-                    success: function (data) {
-                        $("#captchaContainer").html(data);
-                        $("#captchaContainer").show();
-                    }
-                });
-            }
-        });
-    });
+    var username = document.forms["loginForm"]["username"].value;
+    var password = document.forms["loginForm"]["password"].value;
+
+    if (username === "" || password === "") {
+        // Ko'rsatilishi kerak bo'lgan xabar
+        alert("Iltimos, usernameni va parolni to'ldiring!");
+        return false;
+    }
+    else {
+        document.getElementById('captchaContainer').style.display = 'block';
+        return true;
+    }
+}
+
 </script>
+
 
 {% endblock content %}
 

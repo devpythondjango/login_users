@@ -11,6 +11,7 @@ class AdminProfile(models.Model):
     is_kerocontrol_admin = models.BooleanField(default=False, null=True, blank=True )
     is_self_visible = models.BooleanField(default=False, null=True, blank=True)
     is_admin = models.BooleanField(default=False, null=True, blank=True)
+    is_users = models.BooleanField(default=False, null=True, blank=True)
     GENDER_MALE = 1
     GENDER_FEMALE = 2
     GENDER_CHOICES = [

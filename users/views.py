@@ -1,14 +1,9 @@
 from django.shortcuts import render, redirect
 from authn.forms import form_validation_error
-from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.decorators import login_required
 from authn.views import login_decorator
 from .forms import ApplicationForm, ProfileForm
-from django.utils.decorators import method_decorator
 from django.contrib import messages
-from django.views import View
 from .models import Application, ApplicationCreate, Profile
-from django.urls import reverse
 
 
 def home(request):
@@ -63,7 +58,7 @@ def application_create(request):
                 print(forms.errors)
                 messages.error(request, form_validation_error(forms))
             print(forms.errors)
-            return redirect('application_create')
+            return redirect('application_list')
         else:
             forms = ApplicationForm(user=request.user)
         context = {'forms': forms, 'segment': 'application_create'}
