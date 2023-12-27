@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-cc5e3p=2l9kn&$7shj6_!8mgb^-4)4)ln!3c_(ct*rq@t-3*=!'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -138,39 +140,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CAPTCHA_LENGTH = 4
 
 
-# RECAPTCHA_PUBLIC_KEY = '6LeSVjgpAAAAAEN9RO0iRa2fbAb6nFBLErm8eXjQ'
-# RECAPTCHA_PRIVATE_KEY = '6LeSVjgpAAAAAOEzDYG3UxdzEgxM6XgBeLarrejK'
-
-
-RECAPTCHA_PUBLIC_KEY = '6LdjSzkpAAAAAMeKrs3HOS9XOfjR91uXSMoMqrb3'
-RECAPTCHA_PRIVATE_KEY = '6LdjSzkpAAAAAAPY6X8rtq6xmJOp4yVcK5RzLPRP0'
+RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'devpysh@gmail.com'
-EMAIL_HOST_PASSWORD = 'vinluukacapyqrlw'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 
-#
-# RECAPTCHA_PUBLIC_KEY = '6LfRlSwpAAAAAHGobkyn3ydW61fzskp6xAxXVcKf'
-# RECAPTCHA_PRIVATE_KEY = '6LfRlSwpAAAAAK6rjgn-_N4yAW4WnouDBX86a2yt'
 
-# ip = '68faef508f8a97142725dd5a6b191de1-9ad12951-19e3-475e-9391-41f394a246c1'
-# url = 'vv6yr1.api.infobip.com'
-
-# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-# EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
-
-# # Parolni esdan chiqarish xizmatini faollashtirish
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-# # SMTP sozlamalari
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True  # yoki EMAIL_USE_SSL = True (serveringizni qanday sozlayotganingizga qarab)
-
-# # Foydalanuvchining email manzili va paroli uchun parolni esdan chiqarish xavfsizlik savarlarini belgilash
-# EMAIL_HOST_USER = 'devpysh@gmail.com'
-# EMAIL_HOST_PASSWORD = "wwljzciwfosvufzs"
