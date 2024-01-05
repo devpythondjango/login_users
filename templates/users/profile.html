@@ -15,8 +15,8 @@
         <div class="d-block mb-4 mb-md-0">
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
-                  <li class="breadcrumb-item"><a href="/"><span class="fas fa-home"></span></a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Sozlamalar</li>
+                    <li class="breadcrumb-item"><a href="/"><span class="fas fa-home"></span></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Sozlamalar</li>
                 </ol>
             </nav>
             <h2 class="h4">Profile</h2>
@@ -103,7 +103,7 @@
                     <div class="col-12 mb-4">
                         <div class="card border-light text-center p-0">
                             <div class="profile-cover rounded-top"
-                                 data-background="{{ user_profile.get_back_avatar }}"></div>
+                                 data-background="{% static 'img/pages/tatu.jpg' %}"></div>
                             <div class="card-body pb-5">
                                 <img src="{{ user_profile.get_avatar }}"
                                      class="user-avatar large-avatar rounded-circle mx-auto mt-n7 mb-4"
@@ -128,27 +128,6 @@
                                                     <span class="fas fa-paperclip mr-3"></span>
                                                 </span>
                                             <input name="avatar" type="file">
-                                            <div class="d-md-block text-left">
-                                                <div class="font-weight-normal text-dark mb-1">Rasm tanlang</div>
-                                                <div class="text-gray small">JPG, GIF yoki PNG.</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="card card-body bg-white border-light shadow-sm mb-4">
-                            <h2 class="h5 mb-4">Profil orqasiga rasm tanlang</h2>
-                            <div class="d-xl-flex align-items-center">
-                                <div class="file-field">
-                                    <div class="d-flex justify-content-xl-center ml-xl-3">
-                                        <div class="d-flex">
-                                                <span class="icon icon-md">
-                                                    <span class="fas fa-paperclip mr-3"></span>
-                                                </span>
-                                            <input name="back_avatar" type="file">
                                             <div class="d-md-block text-left">
                                                 <div class="font-weight-normal text-dark mb-1">Rasm tanlang</div>
                                                 <div class="text-gray small">JPG, GIF yoki PNG.</div>

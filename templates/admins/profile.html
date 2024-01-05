@@ -16,17 +16,17 @@
             <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
                 <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
                     <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Settings</li>
+                    <li class="breadcrumb-item active" aria-current="page">Sozlamalar</li>
                 </ol>
             </nav>
-            <h2 class="h4">Admin</h2>
-            <!-- <p class="mb-0">Your web analytics dashboard template.</p> -->
+            <h2 class="h4">Profile</h2>
+            <p class="mb-0"></p>
         </div>
-        <!-- <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group">
-                <a href="" class="btn btn-sm btn-outline-primary">Ariza yuborsh</a>
+
             </div>
-        </div> -->
+        </div>
     </div>
     <form action="{% url 'admin_profile' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
@@ -90,8 +90,7 @@
                         </div>
                         <div class="col-md-6 mb-6">
                             <label>Passport seriyasi:</label>
-                            <input type="text" class="form-control" name="passport_serial" placeholder="Passport seria"
-                                   required value="{{admin_profile.passport_serial|default:''}}">
+                            <input type="text" class="form-control" name="passport_serial" placeholder="Passport seria" required value="{{admin_profile.passport_serial|default:''}}">
                         </div>
                     </div>
                     <div class="mt-3">
@@ -104,7 +103,7 @@
                     <div class="col-12 mb-4">
                         <div class="card border-light text-center p-0">
                             <div class="profile-cover rounded-top"
-                                 data-background="{{ admin_profile.get_back_admin_avatar }}"></div>
+                                 data-background="{% static 'img/pages/tatu.jpg' %}"></div>
                             <div class="card-body pb-5">
                                 <img src="{{ admin_profile.get_admin_avatar }}"
                                      class="user-avatar large-avatar rounded-circle mx-auto mt-n7 mb-4"
@@ -139,33 +138,6 @@
                                             <div class="d-md-block text-left">
                                                 <div class="font-weight-normal text-dark mb-1">Rasm tanlang</div>
                                                 <div class="text-gray small">JPG, GIF yoki PNG.</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 ">
-                        <div class="card card-body shadow-sm mb-4">
-                            <h2 class="h5 mb-4">Profil orqasiga rasm tanlang</h2>
-                            <div class="d-xl-flex align-items-center">
-                                <div>
-                                    <!-- Avatar -->
-                                    <div class="user-avatar xl-avatar">
-                                        <img class="rounded" src="{{ admin_profile.get_back_admin_avatar }}"
-                                             alt="change cover photo">
-                                    </div>
-                                </div>
-                                <div class="file-field">
-                                    <div class="d-flex justify-content-xl-center ms-xl-3">
-                                        <div class="d-flex">
-                                            <span class="icon icon-md"><span
-                                                    class="fas fa-paperclip me-3"></span></span> <input
-                                                name="back_admin_avatar" type="file">
-                                            <div class="d-md-block text-left">
-                                                <div class="fw-normal text-dark mb-1">Rasm tanlang</div>
-                                                <div class="text-gray small">JPG, GIF yoki PNG</div>
                                             </div>
                                         </div>
                                     </div>

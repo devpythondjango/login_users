@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django import template
 
 
-@login_required(login_url="/login/")
+@login_required(login_url="login_users")
 def index(request):
     context = {'segment': 'index'}
 
@@ -13,7 +13,7 @@ def index(request):
     return HttpResponse(html_template.render(context, request))
 
 
-@login_required(login_url="/login/")
+@login_required(login_url="login_users")
 def pages(request):
     context = {}
     # All resource paths end in .html.
