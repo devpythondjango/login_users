@@ -97,10 +97,15 @@ def login_user(request):
     return render(request, 'users/login.html', {'form': form})
 
 
+from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
+
+
 @login_decorator
+@csrf_protect
+@ensure_csrf_cookie
 def logout_user(request):
     logout(request)
-    return redirect("login")
+    return redirect("home")
 
 
 class YourCustomPasswordResetView(PasswordResetView):

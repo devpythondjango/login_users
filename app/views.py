@@ -3,8 +3,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from django import template
+from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 
 
+
+@csrf_protect
+@ensure_csrf_cookie
 @login_required(login_url="login_users")
 def index(request):
     context = {'segment': 'index'}
@@ -13,6 +17,8 @@ def index(request):
     return HttpResponse(html_template.render(context, request))
 
 
+@csrf_protect
+@ensure_csrf_cookie
 @login_required(login_url="login_users")
 def pages(request):
     context = {}

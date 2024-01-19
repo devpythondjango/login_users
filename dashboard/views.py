@@ -8,9 +8,12 @@ from .models import AdminProfile
 from django.urls import reverse
 from django.db.models import Q
 from django.utils import timezone
+from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 
 
 @login_decorator
+@csrf_protect
+@ensure_csrf_cookie
 def admin_profile_view(request):
     if request.user.admin_profile.is_admin:
         holat = Application.objects.select_related('position', 'system', 'app_create').filter(
@@ -78,6 +81,8 @@ def admin_profile_view(request):
 
 
 @login_decorator
+@csrf_protect
+@ensure_csrf_cookie
 def index(request):
     today = timezone.now()
     if request.user.admin_profile.is_admin:  # user.admin_profile.is_admin
@@ -304,6 +309,8 @@ def index(request):
 
 
 @login_decorator
+@csrf_protect
+@ensure_csrf_cookie
 def hemis_arizalar(request):
     if request.user.admin_profile.is_admin:  # user.admin_profile.is_admin
         holat = Application.objects.select_related('position', 'system', 'app_create').filter(
@@ -362,6 +369,8 @@ def hemis_arizalar(request):
 
 
 @login_decorator
+@csrf_protect
+@ensure_csrf_cookie
 def kero_arizalar(request):
     if request.user.admin_profile.is_admin:  # user.admin_profile.is_admin
         holat = Application.objects.select_related('position', 'system', 'app_create').filter(
@@ -420,6 +429,8 @@ def kero_arizalar(request):
 
 
 @login_decorator
+@csrf_protect
+@ensure_csrf_cookie
 def lms_arizalar(request):
     if request.user.admin_profile.is_admin:  # user.admin_profile.is_admin
         holat = Application.objects.select_related('position', 'system', 'app_create').filter(
@@ -478,6 +489,8 @@ def lms_arizalar(request):
 
 
 @login_decorator
+@csrf_protect
+@ensure_csrf_cookie
 def Ariza_edit(request, pk):
     if request.user.admin_profile.is_admin:  # user.admin_profile.is_admin
         holat = Application.objects.select_related('position', 'system', 'app_create').filter(

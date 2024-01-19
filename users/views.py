@@ -4,12 +4,30 @@ from authn.views import login_decorator
 from .forms import ApplicationForm, ProfileForm
 from django.contrib import messages
 from .models import Application, ApplicationCreate, Profile
-
+from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 
 def home(request):
-    return render(request, 'layouts/index.html')
+    user_count = Profile.objects.all().count()
+    hemis = Application.objects.filter(system=1).count()
+    kero = Application.objects.filter(system=3).count()
+    lms = Application.objects.filter(system=2).count()
+    print(hemis)
+    ctx = {
+        'user_count':user_count,
+        'hemis':hemis,
+        'kero':kero,
+        'lms':lms,
+    }
+    return render(request, 'index.html', ctx)
+
+def xavfsiz(request):
+    return render(request, 'users/xavsizlik_shartlari.html')
 
 
+
+
+@csrf_protect
+@ensure_csrf_cookie
 @login_decorator
 def profile_view(request):
     if request.user.user_profile.is_users:  # user.user_profile.is_users
@@ -41,6 +59,8 @@ def profile_view(request):
 
 
 @login_decorator
+@csrf_protect
+@ensure_csrf_cookie
 def application_create(request):
     if request.user.user_profile.is_users:  # user.user_profile.is_users
         if request.method == 'POST':
@@ -71,6 +91,8 @@ def application_create(request):
 
 
 @login_decorator
+@csrf_protect
+@ensure_csrf_cookie
 def application_list(request):
     if request.user.user_profile.is_users:  # user.user_profile.is_users
         applications = Application.objects.all()
@@ -84,7 +106,9 @@ def application_list(request):
         return redirect('login')
 
 
-@login_decorator
+@csrf_protect
+@csrf_protect
+@ensure_csrf_cookie
 def application_views(request, pk):
     if request.user.user_profile.is_users:  # user.user_profile.is_users
         application = Application.objects.get(pk=pk)
