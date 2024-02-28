@@ -12,13 +12,17 @@ from django.http import HttpResponse
 from django import template
 
 
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
+
+
 def login_decorator(func):
     return login_required(func, login_url='login')
 
 
 class RegisterView(View):
     form_class = RegisterForm
-    initial = {'key': 'value'}
+    initial = {'key': 'value'} 
 
     def get(self, request, *args, **kwargs):
         form = self.form_class(initial=self.initial)
@@ -44,6 +48,10 @@ class RegisterView(View):
             messages.success(request, f'{username} foydalanuvchi yaratildi')
 
             return redirect(to='login')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.warning(request, f'{field}: {error}')
 
         return render(request, 'users/register.html', {'form': form})
 
@@ -56,14 +64,17 @@ def login_admin(request):
             password = request.POST.get('password')
             captcha = form.cleaned_data.get('captcha', None)
             user = authenticate(request, password=password, username=username, captcha=captcha)
-
-            if user.admin_profile.is_admin:
-                if user is not None:
-                    login(request, user)
-                    messages.success(request, f'Tizimga muvafaqiyatli kirdingiz!')
-                    return redirect('index')
-                else:
-                    messages.warning(request, f'Username yoki parol xato')
+            if user is not None:
+                try:
+                    if user.admin_profile.is_admin:
+                        login(request, user)
+                        messages.success(request, f'Tizimga muvafaqiyatli kirdingiz!')
+                        return redirect('index')
+                except:
+                    messages.warning(request, f'Kechirasiz siz admin emas siz!')
+                    return redirect("home")
+            else:
+                messages.warning(request, f'Username yoki parol xato')
         else:
             messages.warning(request, f'Forma noto\'g\'ri to\'ldirilgan')
     else:
@@ -80,14 +91,20 @@ def login_user(request):
             password = form.cleaned_data['password']
             captcha = form.cleaned_data.get('captcha', None)
             user = authenticate(request, password=password, username=username, captcha=captcha)
-            if user.user_profile.is_users:
-                if user is not None:
-                    login(request, user)
-                    messages.success(request, f'Tizimga muvafaqiyatli kirdingiz!')
-
-                    return redirect('application_list')
-                else:
-                    messages.warning(request, f'Username yoki parol xato')
+            
+            if user is not None:
+                try:
+                    if user.user_profile.is_users:
+                        login(request, user)
+                        messages.success(request, f'Tizimga muvafaqiyatli kirdingiz!')
+                        return redirect('application_list')
+                except:
+                    messages.warning(request, f'Siz foydalanuvchilar ro\'yxatidan o\'tmagansiz! \n Iltimos avval ro\'yxatdan o\'ting!')
+                    return redirect("home")
+            else:
+                messages.warning(request, f'Username yoki parol xato')
+                return redirect("login")
+                
 
         else:
             messages.warning(request, f'Forma noto\'g\'ri to\'ldirilgan')

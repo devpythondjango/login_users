@@ -1,138 +1,99 @@
-{% extends "layouts/base-fullscreen.html" %}
+<!DOCTYPE html>
 {% load static %}
-{% block title %} Register {% endblock %}
+<html lang="en">
 
-<!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>TATU Samarqand filiali</title>
+  <link rel="stylesheet" href="{% static 'login/vendors/typicons.font/font/typicons.css' %}">
+  <link rel="stylesheet" href="{% static 'login/vendors/css/vendor.bundle.base.css' %}">
+  <link rel="stylesheet" href="{% static 'login/css/vertical-layout-light/style.css' %}">
+  <link rel="shortcut icon" href="{% static 'login/images/favicon.png' %}" />
 
-{% block body_class %} bg-primary {% endblock body_class %}
+</head>
 
-{% block content %}
-
-<main>
-
-    <!-- Section -->
-    <section class="vh-lg-100 d-flex align-items-center">
-        <div class="container">
-            <div class="row justify-content-center form-bg-image"
-                 data-background="{% static 'img/pages/tatu1.jpg' %}">
-                <div class="col-12 d-flex align-items-center justify-content-center">
-                    <div class="signin-inner my-3 my-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-
-                        <div class="text-center text-md-center mb-4 mt-md-0">
-                            <h1 class="mb-0 h4">
-                                Toshkent axborat texnalogiyalari Unversiteti Samarqand filiali
-                            </h1>
-                            <br/>
-                            <p>
-                           
-                            </p>
+<body>
+  {% include 'notification.html' %}
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-6 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo text-center">
+                <img class="" src="{% static 'img/illustrations/Logo.png' %}" alt="logo" style="height: 80px; width: 80px;" >
+              </div>
+              <h3 class="text-center">Toshkent axborot texnologiyalari universiteti</h3>
+              <h5 class="font-weight-light text-center">Samarqand filiali</h6>
+              <form method="post" action="" class="pt-3">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            {{ form.first_name }}
                         </div>
-
-                        {% if success %}
-
-                        <a href="{% url 'login' %}" class="btn btn-block btn-primary">Sign IN</a>
-
-                        {% else %}
-
-                        <form method="post" action="">
-
-                            {% csrf_token %}
-                            <div class="form-group mb-4">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <label for="email">Ism</label>
-                                        <div class="input-group">
-                                        <span class="input-group-text" id="basic-addon3"><span
-                                                class="fas fa-user"></span></span>
-                                            {{ form.first_name }}
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <label for="email">Familiya</label>
-                                        <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon3"><span
-                                            class="fas fa-user"></span></span>
-                                            {{ form.last_name }}
-                                        </div>
-                                    </div>
-                                    <span class="text-error">{{ form.username.errors }}</span>
-                                </div>
-                            </div>
-                            <!-- Form -->
-                            <div class="form-group mb-4">
-                                <label for="email">Username</label>
-                                <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon3"><span
-                                            class="fas fa-user-shield"></span></span>
-                                    {{ form.username }}
-                                </div>
-                                <span class="text-error">{{ form.username.errors }}</span>
-                            </div>
-                            <!-- End of Form -->
-
-                            <!-- Form -->
-                            <div class="form-group mb-4">
-                                <label for="email">Email</label>
-                                <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon3"><span
-                                            class="fas fa-envelope"></span></span>
-                                    {{ form.email }}
-                                </div>
-                                <span class="text-error">{{ form.email.errors }}</span>
-                            </div>
-                            <!-- End of Form -->
-
-                            <div class="form-group">
-
-                                <!-- Form -->
-                                <div class="form-group mb-4">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="password">Parol</label>
-                                            <div class="input-group">
-                                        <span class="input-group-text" id="basic-addon4"><span
-                                                class="fas fa-unlock-alt"></span></span>
-                                                {{ form.password1 }}
-                                            </div>
-                                            <span class="text-error">{{ form.password1.errors }}</span>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="password">Parolni qayta kiriting</label>
-                                            <div class="input-group">
-                                        <span class="input-group-text" id="basic-addon4"><span
-                                                class="fas fa-unlock-alt"></span></span>
-                                                {{ form.password2 }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck5" required>
-                                        <label class="form-check-label" for="defaultCheck5">
-                                            <a href="{% url 'xavfsiz' %}" class="text-info">Xavsizlik shartlariga roziman</a>
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <a href="{% url 'login' %}" class="small text-right">Login</a>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <button type="submit" name="register" class="btn btn-block btn-primary">Ro'yxatdan o'tish</button>
-                        </form>
-
-                        {% endif %}
                     </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            {{ form.username }}
+                            <span class="text-error">{{ form.username.errors }}</span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            {{ form.email }}
+                            <span class="text-error">{{ form.email.errors }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            {{ form.password1 }}
+                            <span class="text-error">{{ form.password1.errors }}</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            {{ form.password2 }}
+                            <span class="text-error">{{ form.password2.errors }}</span>
+                        </div>
+                    </div>
+                </div>                
+                <div class="mb-4">
+                  <div class="form-check">
+                    <label class="form-check-label text-muted">
+                      <input type="checkbox" class="form-check-input" required>
+                    </label>
+                    <a href="{% url 'xavfsiz' %}">Men barcha shartlar va shartlarga roziman</a>
+                    
+                  </div>
                 </div>
+                <div class="mt-3">
+                    <button type="submit" name="register" class="btn btn-block btn-facebook auth-form-btn">
+                        Ro'yxatdan o'tish
+                    </button>
+                </div>
+                <div class="text-center mt-4 font-weight-light">
+                    Hisobingiz bormi?  <a href="{% url 'login' %}" class="text-primary"> Tizimga kirish</a>
+                </div>
+              </form>
             </div>
+          </div>
         </div>
-    </section>
-</main>
+      </div>
+    </div>
+  </div>
+  <script src="{% static 'login/vendors/js/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'login/js/off-canvas.js' %}"></script>
+  <script src="{% static 'login/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'login/js/template.js' %}"></script>
+  <script src="{% static 'login/js/settings.js' %}"></script>
+  <script src="{% static 'login/js/todolist.js' %}"></script>
+</body>
 
-{% endblock content %}
-
-<!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+</html>

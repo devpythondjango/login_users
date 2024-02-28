@@ -1,114 +1,103 @@
-{% extends "layouts/base-fullscreen.html" %}
+<!DOCTYPE html>
 {% load static %}
-{% block title %} Login {% endblock %}
+<html lang="en">
 
-<!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+<head> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>TATU Samarqand filiali</title>
+  <link rel="stylesheet" href="{% static 'admin/vendors/typicons.font/font/typicons.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/vendors/css/vendor.bundle.base.css' %}">
+  <link rel="stylesheet" href="{% static 'admin/css/vertical-layout-light/style.css' %}">
+  <link rel="shortcut icon" href="{% static 'admin/images/favicon.png' %}" />
 
-{% block body_class %} bg-soft {% endblock body_class %}
+</head>
 
-{% block content %}
-
-<main>
-
-    <!-- Section -->
-    <section class="vh-lg-100 d-flex align-items-center">
-        <div class="container">
-            <div class="row justify-content-center form-bg-image"
-                 data-background="{% static 'img/pages/tatu1.jpg' %}">
-                <div class="col-12 d-flex align-items-center justify-content-center">
-                    <div class="signin-inner my-3 my-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-
-                        <div class="text-center text-md-center mb-4 mt-md-0">
-                            <h1 class="mb-0 h4">
-                                Toshkent axborat texnalogiyalari Unversiteti Samarqand filiali
-                            </h1>
-                            <br/>
-                            <p>
-                                {% if msg %}
-                                {{ msg | safe }}
-                                {% else %}
-                                <!-- Add your credentials -->
-                                {% endif %}
-                            </p>
-                        </div>
-
-                        <form method="post" action="" class="mt-4" id="loginForm"
-                              onsubmit="return validateForm()">
-
-                            {% csrf_token %}
-
-                            <div class="form-group mb-4">
-                                <label for="email">Username</label>
-                                <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon1"><span
-                                            class="fas fa-user-circle"></span></span>
-                                    <input class="form-control" type="username" name="username" placeholder="username">
-                                </div>
-                            </div>
-                            <div class="form-group mb-4">
-                                <label for="password">Parol</label>
-                                <div class="input-group">
-                                    <span class="input-group-text" id="basic-addon2"><span
-                                            class="fas fa-unlock-alt"></span></span>
-                                    <input class="form-control" type="password" name="password" placeholder="Parol">
-                                </div>
-                            </div>
-                            <div id="captchaContainer" style="display: none;">
-                                {{ form.captcha }}
-                            </div>
-
-                            <br><br>
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
-                                    <label class="form-check-label" for="defaultCheck5">
-                                        Meni eslab qolish
-                                    </label>
-                                </div>
-                                `
-                            </div>
-                            <button type="submit" name="login" class="btn btn-block btn-primary" onclick="validateForm()" id="btn">Kirish</button>
-                            <div class="form-group">
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <div class="form-check">
-                                        <a href="" class="small text-right"></a>
-                                    </div>
-                                    <div class="form-check">
-                                        <a href="{% url 'password_reset' %}" class="small text-right">Parolni unutdingizmi?</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-
-
-                    </div>
+<body>
+  {% include 'notification.html' %}
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+          <div class="col-lg-5 mx-auto">
+            <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+              <div class="brand-logo text-center">
+                <img src="{% static 'img/illustrations/Logo.png' %}" alt="logo" style="height: 80px; width: 80px;" >
+              </div>
+              <h3 class="text-center">Toshkent axborot texnologiyalari universiteti</h3>
+              <h5 class="font-weight-light text-center">Samarqand filiali</h5>
+              <form method="post"  class="mt-4" id="loginForm"
+              onsubmit="return validateForm()">
+                {% csrf_token %} 
+                <div class="form-group">
+                  <label for="exampleInputUsername">Username</label>
+                  <input type="text" class="form-control form-control-lg" id="exampleInputUsername" name="username" placeholder="Foydalanuvchi nomi">
                 </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Parol</label>
+                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" name="password" placeholder="Parol">
+                </div>
+                <div class="mt-3" id="captchaContainer" style="display: none;">
+                    {{ form.captcha }}
+                </div>
+                <div class="my-2 d-flex justify-content-between align-items-center">
+                  <div class="form-check">
+                    <div class="form-check">
+                      <label class="form-check-label text-muted" for="passwordCheckbox">
+                        <input type="checkbox" class="form-check-input" id="passwordCheckbox">Meni eslab qol</label>
+                    </div>
+                  </div>
+                  <a href="{% url 'password_reset' %}"  class="auth-link text-black">Parolni unutdingizmi?</a>
+                </div>
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-block btn-facebook auth-form-btn" onclick="validateForm()" id="btn">
+                       Tizimga kirish
+                    </button>
+                </div>
+              </form>
             </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+  <script src="{% static 'admin/vendors/js/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'admin/js/off-canvas.js' %}"></script>
+  <script src="{% static 'admin/js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'admin/js/template.js' %}"></script>
+  <script src="{% static 'admin/js/settings.js' %}"></script>
+  <script src="{% static 'admin/js/todolist.js' %}"></script>
+  <script>
+    function validateForm() {
+    
+        var username = document.forms["loginForm"]["username"].value;
+        var password = document.forms["loginForm"]["password"].value;
+    
+        if (username === "" || password === "") {
+            alert("Iltimos, usernameni va parolni to'ldiring!");
+            return false;
+        }
+        else {
+            document.getElementById('captchaContainer').style.display = 'block';
+            return true;
+        }
 
-</main>
-<script>
-function validateForm() {
 
-    var username = document.forms["loginForm"]["username"].value;
-    var password = document.forms["loginForm"]["password"].value;
+        var username = document.getElementById('exampleInputUsername').value;
+        var password = document.getElementById('exampleInputPassword1').value;
+        var rememberMe = document.getElementById('passwordCheckbox').checked;
 
-    if (username === "" || password === "") {
-        // Ko'rsatilishi kerak bo'lgan xabar
-        alert("Iltimos, usernameni va parolni to'ldiring!");
-        return false;
+        // Bu joyda foydalanuvchini login va parolini saqlash kerak. 
+        // Siz bu ma'lumotlarni serverga jo'natishingiz mumkin.
+
+        // Keyingi kirishlarda foydalanuvchining login va parolini eslab qolishni tekshirish
+        if (rememberMe) {
+          // Agar "Meni eslab qol" belgilangan bo'lsa, ma'lumotlarni o'zini eslab qolar edik
+          document.getElementById('exampleInputUsername').value = username;
+          document.getElementById('exampleInputPassword1').value = password;
+        }
     }
-    else {
-        document.getElementById('captchaContainer').style.display = 'block';
-        return true;
-    }
-}
+    </script>    
+</body>
 
-</script>
-
-{% endblock content %}
-
-<!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+</html>

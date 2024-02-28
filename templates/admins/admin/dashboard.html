@@ -1,0 +1,551 @@
+{% extends "admins/admin/base.html" %}
+{% load static %}
+{% block content %}
+<link rel="canonical" href="https://themeselection.com/item/sneat-bootstrap-html-admin-template/">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+        <div class="theme-setting-wrapper">
+          <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+          <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">Yon paneldagi terilar</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+              <div class="img-ss rounded-circle bg-light border mr-3"></div>
+              Oq
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+              <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+              Qora
+            </div>
+            <p class="settings-heading mt-2">SARLIK TERILARI</p>
+            <div class="color-tiles mx-0 px-4">
+              <div class="tiles success"></div>
+              <div class="tiles warning"></div>
+              <div class="tiles danger"></div>
+              <div class="tiles primary"></div>
+              <div class="tiles info"></div>
+              <div class="tiles dark"></div>
+              <div class="tiles default border"></div>
+            </div>
+          </div>
+        </div>
+        {% include 'admins/admin/sidbare.html' %}
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+                <div class="col-12 mb-4"> 
+                    <div class="card bg-yellow-alt shadow-sm">
+                        <div class="card-header d-flex flex-row align-items-center flex-0">
+                            <div class="d-block">
+                                <div class="h5 font-weight-normal mb-2">Arizalar statistikasi</div>
+                            </div>
+                        </div>
+                        <div class="card-body p-2">
+                          <canvas id="myChart13" width="600" height="200"></canvas>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <!-- tablitasa -->
+                <div class="col-lg-12 grid-margin stretch-card">
+                  <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title">Asosiy ko'rsatkichlar</h4>
+                      <div class="table-responsive pt-3">
+                        <table class="table table-bordered table-striped">
+                          <thead class="bg-light">
+                            <tr >
+                              <th class="fw-bolder">
+                                Kafedralar
+                              </th>
+                              {% for type in fayl_type %}
+                              <th class="fw-bolder">
+                                {{type}}
+                              </th>
+                              {% endfor %}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                Axborat xavfsizligi
+                              </td>
+                              {% for son in fayl_tasdiq_son1 %}
+                              <td>
+                                <a href="" class="text-center text-secondary pl-4">{{son}}</a>
+                              </td>
+                              {% endfor %}
+                            </tr>
+                            <tr>
+                              <td>
+                                Axborot texnologiyalari
+                              </td>
+                              {% for son in fayl_tasdiq_son2 %}
+                              <td>
+                                <a href="" class="text-center text-secondary pl-4">{{son}}</a>
+                              </td>
+                              {% endfor %}
+                            </tr>
+                            <tr>
+                              <td>
+                                Dasturiy injiniring
+                              </td>
+                              {% for son in fayl_tasdiq_son3 %}
+                              <td>
+                                <a href="" class="text-center text-secondary pl-4">{{son}}</a>
+                              </td>
+                              {% endfor %}
+                            </tr>
+                            <tr>
+                              <td>
+                                Kompyuter tizimlari kafedrasi
+                              </td>
+                              {% for son in fayl_tasdiq_son4 %}
+                              <td>
+                                <a href="" class="text-center text-secondary pl-4">{{son}}</a>
+                              </td>
+                              {% endfor %}
+                            </tr>
+                            <tr>
+                              <td>
+                                Axborot ta’lim texnologiyalari
+                              </td>
+                              {% for son in fayl_tasdiq_son5 %}
+                              <td>
+                                <a href="" class="text-center text-secondary pl-4">{{son}}</a>
+                              </td>
+                              {% endfor %}
+                            </tr>
+                            <tr>
+                              <td>
+                                Gumanitar va ijtimoiy fanlar
+                              </td>
+                              {% for son in fayl_tasdiq_son6 %}
+                              <td>
+                                <a href="" class="text-center text-secondary pl-4">{{son}}</a>
+                              </td>
+                              {% endfor %}
+                            </tr>
+                            <tr>
+                              <td>
+                                Tabiiy fanlar
+                              </td>
+                              {% for son in fayl_tasdiq_son7 %}
+                              <td>
+                                <a href="" class="text-center text-secondary pl-4">{{son}}</a>
+                              </td>
+                              {% endfor %}
+                            </tr>
+                            <tr>
+                              <td>
+                                Telekommunikatsiya injiniringi
+                              </td>
+                              {% for son in fayl_tasdiq_son8 %}
+                              <td>
+                                <a href="" class="text-center text-secondary pl-4">{{son}}</a>
+                              </td>
+                              {% endfor %}
+                            </tr>
+                            <tr>
+                              <td>
+                                Tillar kafedrasi
+                              </td>
+                              {% for son in fayl_tasdiq_son9 %}
+                              <td>
+                                <a href="" class="text-center text-secondary pl-4">{{son}}</a>
+                              </td>
+                              {% endfor %}
+                            </tr>
+                            
+                            <tr class="bg-light">
+                              <td class="">
+                                TTKT
+                              </td>   
+                              {% for son in fayl_tasdiq_fakultet_son1 %}
+                              <td>
+                                <a href="" class="text-center text-secondary pl-4">{{son}}</a>
+                              </td>
+                              {% endfor %}                         
+                            </tr>
+                            <tr class="bg-light">
+                              <td class="">
+                                KI
+                              </td>
+                              {% for son in fayl_tasdiq_fakultet_son2 %}
+                              <td>
+                                <a href="" class="text-center text-secondary pl-4">{{son}}</a>
+                              </td>
+                              {% endfor %}
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- tablitasa end -->
+                <div class="col-12 col-sm-6 col-xl-4 mb-4">
+                    <div class="card border-light shadow-sm">
+                        <div class="card-body">
+                            <div class="row d-block d-xl-flex align-items-center">
+                                <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                    <div class="icon icon-shape icon-md icon-shape-success rounded mr-4 mr-sm-0"><span class="fas fa-chart-line"></span></div>
+                                    <div class="d-sm-none">
+                                        <h2 class="h5">Hemis</h2>
+                                        <h3 class="mb-1">{{hemis}}</h3>
+                                    </div>
+                                </div> 
+                                <div class="col-12 col-xl-7 px-xl-0">
+                                    <div class="d-none d-sm-block">
+                                        <h2 class="h5">Hemis</h2>
+                                        <h3 class="mb-1">{{hemis}}</h3>
+                                    </div> 
+                                    <!-- <small>Feb 1 - Apr 1,  <span class="icon icon-small"><span class="fas fa-globe-europe"></span></span> WorldWide</small>
+                                    <div class="small mt-2">
+                                        <span class="fas fa-angle-up text-success"></span>
+                                        <span class="text-success font-weight-bold">18.2%</span> Since last month
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="col-12 col-sm-6 col-xl-4 mb-4">
+                    <div class="card border-light shadow-sm">
+                        <div class="card-body">
+                            <div class="row d-block d-xl-flex align-items-center">
+                                <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                    <div class="icon icon-shape icon-md icon-shape-secondary rounded mr-4"><span class="fas fa-chart-line"></span></div>
+                                    <div class="d-sm-none">
+                                        <h2 class="h5">LMS</h2>
+                                        <h3 class="mb-1">{{lms}}</h3>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-7 px-xl-0">
+                                    <div class="d-none d-sm-block">
+                                        <h2 class="h5">LMS</h2>
+                                        <h3 class="mb-1">{{lms}}</h3>
+                                    </div>
+                                    <!-- <small>Feb 1 - Apr 1,  <span class="icon icon-small"><span class="fas fa-globe-europe"></span></span> Worldwide</small>
+                                    <div class="small mt-2">
+                                        <span class="fas fa-angle-up text-success"></span>
+                                        <span class="text-success font-weight-bold">28.2%</span> Since last month
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-xl-4 mb-4">
+                    <div class="card border-light shadow-sm">
+                        <div class="card-body">
+                            <div class="row d-block d-xl-flex align-items-center">
+                                <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                    <div class="d-sm-none">
+                                        <h2 class="h5">Kerio control</h2>
+                                        <h3 class="mb-1">{{kero}}</h3>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-7 px-xl-0">
+                                    <div class="d-none d-sm-block">
+                                        <h2 class="h5">Kerio control</h2>
+                                        <h3 class="mb-1">{{kero}}</h3>
+                                    </div>
+                                    <!-- <small>Feb 1 - Apr 1,  <span class="icon icon-small"><span class="fas fa-globe-europe"></span></span> WorldWide</small>
+                                    <div class="small mt-2">
+                                        <span class="fas fa-angle-up text-success"></span>
+                                        <span class="text-success font-weight-bold">18.2%</span> Since last month
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-15 col-sm-6 col-xl-4 mb-4">
+                    <div class="card border-light shadow-sm">
+                        <div class="card-body">
+                            <div class="row d-block d-xl-flex align-items-center">
+                                <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                                    <canvas id="myPlot14" style="width: 619px; display: block; height: 309px;" width="619" height="309" class="chartjs-render-monitor"></canvas>
+                                </div>  
+                                <div class="col-12 col-xl-7 px-xl-0">
+                                  <h2 class="h5 mb-3">Arizalr foizi</h2>
+                                  <h6 class="font-weight-normal text-gray"><span class="icon w-20 icon-xs icon-success mr-1"><i class="typcn typcn-device-desktop menu-icon"></i></span> Hemis <a href="#" class="h6 text-success">{{hemis_foiz}}</a></h6>
+                                  <h6 class="font-weight-normal text-gray"><span class="icon w-20 icon-xs icon-secondary mr-1"><i class="typcn typcn-device-desktop menu-icon"></i></span> Lms <a href="#" class="h6 text-warning">{{lms_foiz}}</a></h6>
+                                  <h6 class="font-weight-normal text-gray"><span class="icon w-20 icon-xs icon-info mr-1"><i class="typcn typcn-device-desktop menu-icon"></i></span> Kerio control <a href="#" class="h6 text-secondary">{{kero_foiz}}</a></h6>
+                              </div>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 d-flex grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="mt-0">
+                          <div class="d-flex justify-content-between">
+                            <small>Hemis</small>
+                            <small>{{hemis_foiz}}</small>
+                          </div>
+                          <div class="progress progress-md  mt-2">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 60.0%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                        <div class="mt-2">
+                          <div class="d-flex justify-content-between">
+                            <small>Lms</small>
+                            <small>{{lms_foiz}}</small>
+                          </div>
+                          <div class="progress progress-md  mt-2">
+                            <div class="progress-bar bg-secondary" role="progressbar" style="width: 20.0%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                        <div class="mt-2">
+                          <div class="d-flex justify-content-between">
+                            <small>Kerio control</small>
+                            <small>{{kero_foiz}}</small>
+                          </div>
+                          <div class="progress progress-md mt-2">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 20.0%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                  <h5 class="card-header">Dark Table head</h5>
+                  <div class="table-responsive text-nowrap">
+                    <table class="table">
+                      <thead class="table-dark">
+                        <tr>
+                          <th>Project</th>
+                          <th>Client</th>
+                          <th>Users</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody class="table-border-bottom-0">
+                        <tr>
+                          <td><i class="bx bxl-angular bx-sm text-danger me-3"></i> <span class="fw-medium">Angular Project</span></td>
+                          <td>Albert Cook</td>
+                          <td>
+                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" aria-label="Lilian Fuller" data-bs-original-title="Lilian Fuller">
+                                <img src="" alt="Avatar" class="rounded-circle">
+                              </li>
+                              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" aria-label="Sophia Wilkerson" data-bs-original-title="Sophia Wilkerson">
+                                <img src="" alt="Avatar" class="rounded-circle">
+                              </li>
+                              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" aria-label="Christina Parker" data-bs-original-title="Christina Parker">
+                                <img src="" alt="Avatar" class="rounded-circle">
+                              </li>
+                            </ul>
+                          </td>
+                          <td><span class="badge bg-label-primary me-1">Active</span></td>
+                          <td>
+                            <div class="dropdown">
+                              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></button>
+                              <div class="dropdown-menu" style="">
+                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><i class="bx bxl-react bx-sm text-info me-3"></i> <span class="fw-medium">React Project</span></td>
+                          <td>Barry Hunter</td>
+                          <td>
+                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" aria-label="Lilian Fuller" data-bs-original-title="Lilian Fuller">
+                                <img src="" alt="Avatar" class="rounded-circle">
+                              </li>
+                              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" aria-label="Sophia Wilkerson" data-bs-original-title="Sophia Wilkerson">
+                                <img src="" alt="Avatar" class="rounded-circle">
+                              </li>
+                              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" aria-label="Christina Parker" data-bs-original-title="Christina Parker">
+                                <img src="" alt="Avatar" class="rounded-circle">
+                              </li>
+                            </ul>
+                          </td>
+                          <td><span class="badge bg-label-success me-1">Completed</span></td>
+                          <td>
+                            <div class="dropdown">
+                              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></button>
+                              <div class="dropdown-menu" style="">
+                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><i class="bx bxl-vuejs bx-sm text-success me-3"></i> <span class="fw-medium">VueJs Project</span></td>
+                          <td>Trevor Baker</td>
+                          <td>
+                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" aria-label="Lilian Fuller" data-bs-original-title="Lilian Fuller">
+                                <img src="" alt="Avatar" class="rounded-circle">
+                              </li>
+                              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" aria-label="Sophia Wilkerson" data-bs-original-title="Sophia Wilkerson">
+                                <img src="" alt="Avatar" class="rounded-circle">
+                              </li>
+                              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" aria-label="Christina Parker" data-bs-original-title="Christina Parker">
+                                <img src="" alt="Avatar" class="rounded-circle">
+                              </li>
+                            </ul>
+                          </td>
+                          <td><span class="badge bg-label-info me-1">Scheduled</span></td>
+                          <td>
+                            <div class="dropdown">
+                              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><i class="bx bxl-bootstrap bx-sm text-primary me-3"></i> <span class="fw-medium">Bootstrap Project</span></td>
+                          <td>Jerry Milton</td>
+                          <td>
+                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" aria-label="Lilian Fuller" data-bs-original-title="Lilian Fuller">
+                                <img src="" alt="Avatar" class="rounded-circle">
+                              </li>
+                              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" aria-label="Sophia Wilkerson" data-bs-original-title="Sophia Wilkerson">
+                                <img src="" alt="Avatar" class="rounded-circle">
+                              </li>
+                              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" aria-label="Christina Parker" data-bs-original-title="Christina Parker">
+                                <img src="" alt="Avatar" class="rounded-circle">
+                              </li>
+                            </ul>
+                          </td>
+                          <td><span class="badge bg-label-warning me-1">Pending</span></td>
+                          <td>
+                            <div class="dropdown">
+                              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                              <div class="dropdown-menu">
+                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                <a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          {% include 'users/admins/footer.html' %}
+        </div>
+        <!-- main-panel ends -->
+    </div>
+
+<script>
+        // Data values
+        var xValues = ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "iyul", "Avgust", "Sentyabr", "Oktiyabr","Noyabr", "Dekabr"];
+        var hemis = [{{oy_1_1}}, {{oy_2_1}},{{oy_3_1}},{{oy_4_1}},{{oy_5_1}},{{oy_6_1}},{{oy_7_1}},{{oy_8_1}},{{oy_9_1}},{{oy_10_1}},{{oy_11_1}},{{oy_12_1}}];
+      
+        var lms = [{{oy_1_2}}, {{oy_2_2}},{{oy_3_2}},{{oy_4_2}},{{oy_5_2}},{{oy_6_2}},{{oy_7_2}},{{oy_8_2}},{{oy_9_2}},{{oy_10_2}},{{oy_11_2}},{{oy_12_2}}];
+      
+        var kero = [{{oy_1_3}}, {{oy_2_3}},{{oy_3_3}},{{oy_4_3}},{{oy_5_3}},{{oy_6_3}},{{oy_7_3}},{{oy_8_3}},{{oy_9_3}},{{oy_10_3}},{{oy_11_3}},{{oy_12_3}}];
+      
+        new Chart("myChart13", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [ 
+                    { 
+                        data: hemis,
+                        borderColor: "green",
+                        label: 'Hemis',
+                        fill: false
+                    },
+                    { 
+                        data: lms,
+                        borderColor: "red",
+                        label: 'Lms',
+                        fill: false
+                    },
+                    { 
+                        data: kero,
+                        borderColor: "blue",
+                        label: 'Kerio',
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Your Chart Title'
+                },
+                legend: {
+                    display: true
+                }
+            }
+        });
+</script>
+<script>
+          var yValues = [{{hemis}}, {{lms}}, {{kero}}];
+          var barColors = [
+                "#1e7145",
+                "#e8c3b9",
+                "#2b5797",
+              ];
+              
+              var chart = new Chart("myPlot14", {
+                type: "pie",
+                data: {
+                  
+                  datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                  }]
+                },
+                options: {
+                  title: {
+                    display: true,
+                  }
+                }
+              });
+</script>
+<script>
+          var chart13 = new Chart("myPlot13", {
+            type: 'bar',
+            data: {
+              labels: ["Hemis","Lms","Kerio"],
+              datasets: [{
+                backgroundColor:["green","orange","blue"],
+                data: [{{hemis}}, {{lms}}, {{kero}}]
+              }]
+            },
+            options: {
+              legend: {display: false},
+              scales: {
+                yAxes: [{
+                  ticks: {
+                    beginAtZero: true
+                  }
+                }]
+              },
+                  title: {
+                display: true,
+                text: "World Wide Wine Production 2018",
+                fontSize: 16
+              }
+          
+            }
+          });
+</script>
+
+   
+{% endblock content %} 

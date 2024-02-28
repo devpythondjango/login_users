@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>TATU Samarqand filiali</title>
+    <!-- base:css -->
+    <link rel="stylesheet" href="{% static 'admin/vendors/typicons.font/font/typicons.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/vendors/css/vendor.bundle.base.css' %}">
+    <!-- endinject --> 
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{% static 'admin/css/vertical-layout-light/style.css' %}">
+    <!-- endinject -->
+     <link rel="shortcut icon" href="{% static 'img/illustrations/Logo.png' %}" />
+     <!-- endinject -->
+     <link rel="stylesheet" href="{% static 'admin/vendors/select2/select2.min.css' %}">
+     <link rel="stylesheet" href="{% static 'admin/vendors/select2-bootstrap-theme/select2-bootstrap.min.css' %}">
+     <!-- End plugin css for this page -->
+</head>
+<body>
+    {% include 'notification.html' %}
+    <div class="row" id="proBanner" hidden>
+        
+        <div class="col-12">
+            <i class="typcn typcn-delete-outline" id="bannerClose"></i>
+        </div>
+    </div>
+    <div class="container-scroller">
+
+        {% include 'users/admins/navbar.html' %}
+
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+<!-- container-scroller -->
+    <!-- base:js -->
+    <script src="{% static 'admin/vendors/js/vendor.bundle.base.js' %}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    <!-- End plugin js for this page-->
+    <!-- inject:js -->
+    <script src="{% static 'admin/js/off-canvas.js' %}"></script>
+    <script src="{% static 'admin/js/hoverable-collapse.js' %}"></script>
+    <script src="{% static 'admin/js/template.js' %}"></script>
+    <script src="{% static 'admin/js/settings.js' %}"></script>
+    <script src="{% static 'admin/js/todolist.js' %}"></script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <script src="{% static 'admin/vendors/progressbar.js/progressbar.min.js' %}"></script>
+    <script src="{% static 'admin/vendors/chart.js/Chart.min.js' %}"></script>
+    <!-- End plugin js for this page -->
+    <!-- Custom js for this page-->
+    <script src="{% static 'admin/js/dashboard.js' %}"></script>
+    <!-- End custom js for this page-->
+
+  <!-- endinject -->
+  <!-- plugin js for this page -->
+  <script src="{% static 'admin/vendors/typeahead.js/typeahead.bundle.min.js' %}"></script>
+  <script src="{% static 'admin/vendors/select2/select2.min.js' %}"></script>
+  <!-- End plugin js for this page -->
+  <!-- Custom js for this page-->
+  <script src="{% static 'admin/js/file-upload.js' %}"></script>
+  <script src="{% static 'admin/js/typeahead.js' %}"></script>
+  <script src="{% static 'admin/js/select2.js' %}"></script>
+</body>
+</html>

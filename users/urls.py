@@ -9,7 +9,6 @@ urlpatterns = [
     path('application/list/', application_list, name='application_list'),
     path('application/views/<int:pk>/', application_views, name='application_views'),
     path('users/xavfsizlik/', xavfsiz, name='xavfsiz'),
-
 ]
  
 

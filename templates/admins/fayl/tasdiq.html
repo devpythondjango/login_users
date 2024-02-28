@@ -1,0 +1,63 @@
+{% extends "admins/admin/base.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.html -->
+    <div class="theme-setting-wrapper">
+        <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+        <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">Yon paneldagi terilar</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+                <div class="img-ss rounded-circle bg-light border mr-3"></div>
+                Oq
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+                <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+                Qora
+            </div>
+            <p class="settings-heading mt-2">SARLIK TERILARI</p>
+            <div class="color-tiles mx-0 px-4">
+                <div class="tiles success"></div>
+                <div class="tiles warning"></div>
+                <div class="tiles danger"></div>
+                <div class="tiles primary"></div>
+                <div class="tiles info"></div>
+                <div class="tiles dark"></div>
+                <div class="tiles default border"></div>
+            </div>
+        </div>
+    </div>
+    {% include 'admins/admin/sidbare.html' %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+
+                {% if fayl.tasdiqlangan %}
+                <p>Fayl allaqachon tasdiqlangan.</p>
+                {% else %}
+                <form method="post" action="{% url 'tasdiqlash' fayl.id %}">
+                    {% csrf_token %}
+                    <input type="radio" id="tasdiq_ha" name="tasdiq_holati" value="True" required>
+                    <label for="tasdiq_ha">Tasdiqlash</label><br>
+                    <input type="radio" id="tasdiq_yoq" name="tasdiq_holati" value="False" required>
+                    <label for="tasdiq_yoq">Inkor qilish</label><br>
+                    <button type="submit">Jo'natish</button>
+                </form>
+                {% endif %}
+
+
+                <button type="submit">Jo'natish</button>
+                </form>
+
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        {% include 'users/admins/footer.html' %}
+    </div>
+    <!-- main-panel ends -->
+</div>
+
+{% endblock content %}

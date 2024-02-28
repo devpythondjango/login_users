@@ -1,0 +1,164 @@
+{% extends "users/admins/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+  .pagination {
+  display: inline-block;
+  margin: 20px 0;
+}
+
+.pagination li {
+  display: inline;
+  margin-right: 5px;
+}
+
+.pagination a, .pagination span {
+  padding: 8px 16px;
+  text-decoration: none;
+  color: black;
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+}
+
+.pagination a:hover {
+  background-color: #ddd;
+}
+
+.pagination .active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.pagination .disabled {
+  pointer-events: none;
+  background-color: #ddd;
+  color: #aaa;
+}
+
+</style>
+  
+
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+        <div class="theme-setting-wrapper">
+          <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+          <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">Yon paneldagi terilar</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+              <div class="img-ss rounded-circle bg-light border mr-3"></div>
+              Oq
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+              <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+              Qora
+            </div>
+            <p class="settings-heading mt-2">SARLIK TERILARI</p>
+            <div class="color-tiles mx-0 px-4">
+              <div class="tiles success"></div>
+              <div class="tiles warning"></div>
+              <div class="tiles danger"></div>
+              <div class="tiles primary"></div>
+              <div class="tiles info"></div>
+              <div class="tiles dark"></div>
+              <div class="tiles default border"></div>
+            </div>
+          </div>
+        </div>
+        {% include 'users/admins/sidbare.html' %}
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-lg d-flex grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-wrap justify-content-between">
+                      <h4 class="card-title mb-3">Yuborilgan arizalar</h4>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <tbody>
+                        {% for application in users %}
+                         {% if request.user == application.user %}
+                          <tr>
+                            <td>
+                              <div class="d-flex">
+                                <img class="img-sm rounded-circle mb-md-0 mr-2" src="{{ request.user.user_profile.get_avatar }}" alt="profile image">
+                                <div>
+                                  <div>Ism Familiya</div>
+                                  <div class="font-weight-bold mt-1">{{application.first_name}} {{application.last_name}}</div>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              Telefon
+                              <div class="font-weight-bold  mt-1">+{{application.phone}}</div>
+                            </td>
+                            <td>  
+                              Lavozim
+                              <div class="font-weight-bold  mt-1">{{application.position}}</div>
+                            </td>
+                            <td>
+                              Status
+                              {% for i in applications_create %}
+                              {% if request.user == i.user %}
+                              {% if application.id == i.id %}
+                                  {% if i.status == 'yangi' %}
+                                  <div class="font-weight-bold text-info  mt-1 ">{{i.status}}</div>
+                                  {% elif i.status == 'tekshirilmoqda' %}
+                                  <div class="font-weight-bold text-warning  mt-1">{{i.status}}</div>
+                                  {% elif i.status == 'tekshirildi' %}
+                                  <div class="font-weight-bold text-success  mt-1">{{i.status}}</div>
+                                  {% elif i.status == 'rad etildi' %}
+                                  <div class="font-weight-bold text-danger  mt-1">{{i.status}}</div>
+                                  {% endif %}
+                                  {% endif %}
+                              {% endif %}
+                              {% endfor %}            
+                            </td>
+                            <td>
+                              <a href="{% url 'application_views' pk=application.id %}" class="btn btn-sm btn-secondary">Ko'rish</a>
+                            </td>
+                          </tr>
+                            {% endif %}
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                      
+                    {% if users.has_other_pages %}
+                    <ul class="pagination">
+                      {% if users.has_previous %}
+                        <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+                      {% else %}
+                        <li class="disabled"><span>&laquo;</span></li>
+                      {% endif %}
+                      {% for i in users.paginator.page_range %}
+                        {% if users.number == i %}
+                          <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                        {% else %}
+                          <li><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if users.has_next %}
+                        <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+                      {% else %}
+                        <li class="disabled"><span>&raquo;</span></li>
+                      {% endif %}
+                    </ul>
+                  {% endif %}
+                      <br>
+                    </div>
+                    
+                  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          {% include 'users/admins/footer.html' %}
+        </div>
+        <!-- main-panel ends -->
+    </div>
+   
+{% endblock content %}

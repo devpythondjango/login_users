@@ -1,0 +1,149 @@
+{% extends "admins/admin/base.html" %}
+{% load static %}
+{% block content %}
+
+  
+
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+        <div class="theme-setting-wrapper">
+          <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+          <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">Yon paneldagi terilar</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+              <div class="img-ss rounded-circle bg-light border mr-3"></div>
+              Oq
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+              <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+              Qora
+            </div>
+            <p class="settings-heading mt-2">SARLIK TERILARI</p>
+            <div class="color-tiles mx-0 px-4">
+              <div class="tiles success"></div>
+              <div class="tiles warning"></div>
+              <div class="tiles danger"></div>
+              <div class="tiles primary"></div>
+              <div class="tiles info"></div>
+              <div class="tiles dark"></div>
+              <div class="tiles default border"></div>
+            </div>
+          </div>
+        </div>
+        {% include 'admins/admin/sidbare.html' %}
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+              <div class="col-lg d-flex grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="d-flex flex-wrap justify-content-between">
+                      <h4 class="card-title mb-3">Yuborilgan arizalar</h4>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <tbody>
+                          {% if request.user.admin_profile.is_hemis_admin %}
+                          {% for i in hemis %}
+                          <tr>
+                            <td> 
+                              <div class="d-flex">
+                                <img class="img-sm rounded-circle mb-md-0 mr-2" src="{{ i.user.user_profile.get_avatar }}" alt="profile image">
+                                <div>
+                                  <div>Ism Familiya</div>
+                                  <div class="font-weight-bold mt-1">{{i.first_name}} {{i.last_name}}</div>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              Telefon
+                              <div class="font-weight-bold  mt-1">+{{i.phone}}</div>
+                            </td>
+                            <td>
+                              Lavozim
+                              <div class="font-weight-bold  mt-1">{{i.position}}</div>
+                            </td>
+                            <td>
+                              Ariza yuborilgan vaqt
+                              <div class="font-weight-bold  text-success mt-1">{{i.app_create.createdate}}</div>
+                            </td>
+                            <td>
+                              Status
+                              {% for as in application_create %}
+                                  {% if as.status == 'yangi' and i.id == as.id %}
+                                  <div class="font-weight-bold text-info  mt-1 ">{{as.status}}</div>
+                                  {% elif as.status == 'tekshirilmoqda' and i.id == as.id %}
+                                  <div class="font-weight-bold text-warning  mt-1">{{as.status}}</div>
+                                  {% elif as.status == 'tekshirildi' and i.id == as.id  %}
+                                  <div class="font-weight-bold text-success  mt-1">{{as.status}}</div>
+                                  {% elif as.status == 'rad etildi' and i.id == as.id  %}
+                                  <div class="font-weight-bold text-danger  mt-1">{{as.status}}</div>
+                                  {% endif %}
+                              {% endfor %}            
+                            </td>
+                            <td>
+                              <a href="{% url 'application_edit' pk=i.id %}" class="btn btn-sm btn-secondary">Ko'rish</a>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                          {% elif request.user.admin_profile.is_self_visible %}
+                          {% for i in hemis %}
+                          <tr>
+                            <td>
+                              <div class="d-flex">
+                                <img class="img-sm rounded-circle mb-md-0 mr-2" src="{{ i.user.user_profile.get_avatar }}" alt="profile image">
+                                <div>
+                                  <div>Ism Familiya</div>
+                                  <div class="font-weight-bold mt-1">{{i.first_name}} {{i.last_name}}</div>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              Telefon
+                              <div class="font-weight-bold  mt-1">+{{i.phone}}</div>
+                            </td>
+                            <td>
+                              Lavozim
+                              <div class="font-weight-bold  mt-1">{{i.position}}</div>
+                            </td>
+                            <td>
+                              Ariza yuborilgan vaqt
+                              <div class="font-weight-bold  text-success mt-1">{{i.app_create.createdate}}</div>
+                            </td>
+                            <td>
+                              Status
+                              {% for as in application_create %}
+                                  {% if as.status == 'yangi' and i.id == as.id %}
+                                  <div class="font-weight-bold text-info  mt-1 ">{{as.status}}</div>
+                                  {% elif as.status == 'tekshirilmoqda' and i.id == as.id %}
+                                  <div class="font-weight-bold text-warning  mt-1">{{as.status}}</div>
+                                  {% elif as.status == 'tekshirildi' and i.id == as.id  %}
+                                  <div class="font-weight-bold text-success  mt-1">{{as.status}}</div>
+                                  {% elif as.status == 'rad etildi' and i.id == as.id  %}
+                                  <div class="font-weight-bold text-danger  mt-1">{{as.status}}</div>
+                                  {% endif %}
+                              {% endfor %}            
+                            </td>
+                            <td>
+                              <a href="{% url 'application_edit' pk=i.id %}" class="btn btn-sm btn-secondary">Ko'rish</a>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                          {% endif %}
+                        </tbody>
+                      </table>
+                      <br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          {% include 'users/admins/footer.html' %}
+        </div>
+        <!-- main-panel ends -->
+    </div>
+   
+{% endblock content %}

@@ -5,13 +5,13 @@ from .forms import ApplicationForm, ProfileForm
 from django.contrib import messages
 from .models import Application, ApplicationCreate, Profile
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def home(request):
     user_count = Profile.objects.all().count()
     hemis = Application.objects.filter(system=1).count()
     kero = Application.objects.filter(system=3).count()
     lms = Application.objects.filter(system=2).count()
-    print(hemis)
     ctx = {
         'user_count':user_count,
         'hemis':hemis,
@@ -22,9 +22,6 @@ def home(request):
 
 def xavfsiz(request):
     return render(request, 'users/xavsizlik_shartlari.html')
-
-
-
 
 @csrf_protect
 @ensure_csrf_cookie
@@ -52,13 +49,13 @@ def profile_view(request):
             return redirect('user_profile')
 
         context = {'user_profile': user_profile, 'segment': 'user_profile'}
-        return render(request, 'users/profile.html', context)
+        return render(request, 'users/admins/profile.html', context)
     else:
         messages.warning(request, 'Sizda user ruxsati yo\'q. Foydalanuvchi sahifasiga o\'tishingiz mumkin.')
         return redirect('login')
 
 
-@login_decorator
+@login_decorator 
 @csrf_protect
 @ensure_csrf_cookie
 def application_create(request):
@@ -83,7 +80,7 @@ def application_create(request):
             forms = ApplicationForm(user=request.user)
         context = {'forms': forms, 'segment': 'application_create'}
 
-        return render(request, 'users/form.html', context=context)
+        return render(request, 'users/admins/form.html', context=context)
 
     else:
         messages.warning(request, 'Sizda user ruxsati yo\'q.')
@@ -96,10 +93,24 @@ def application_create(request):
 def application_list(request):
     if request.user.user_profile.is_users:  # user.user_profile.is_users
         applications = Application.objects.all()
+        page_number = request.GET.get("page")
+        paginator = Paginator(applications, 6)
+        try:
+            users = paginator.page(page_number)
+        except PageNotAnInteger:
+            users = paginator.page(1)
+        except EmptyPage:
+            users = paginator.page(paginator.num_pages)
+        
         applications_create = ApplicationCreate.objects.all()
-        context = {'applications': applications, 'applications_create': applications_create,
-                   'segment': 'application_list'}
-        return render(request, 'users/list.html', context=context)
+
+        context = { 
+                    'applications': applications, 
+                    'applications_create': applications_create,
+                    'segment': 'application_list', 
+                    'users': users,
+                    }
+        return render(request, 'users/admins/index.html', context=context)
 
     else:
         messages.warning(request, 'Sizda user ruxsati yo\'q.')
@@ -114,7 +125,7 @@ def application_views(request, pk):
         application = Application.objects.get(pk=pk)
         create = ApplicationCreate.objects.get(pk=pk)
         ctx = {'application': application, 'create': create}
-        return render(request, 'users/view.html', ctx)
+        return render(request, 'users/admins/ariza.html', ctx)
 
     else:
         messages.warning(request, 'Sizda user ruxsati yo\'q.')

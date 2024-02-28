@@ -1,0 +1,105 @@
+{% extends "admins/admin/base.html" %}
+{% load static %}
+{% block content %}
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.html -->
+    <div class="theme-setting-wrapper">
+        <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+        <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">Yon paneldagi terilar</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+                <div class="img-ss rounded-circle bg-light border mr-3"></div>
+                Oq
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+                <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+                Qora
+            </div>
+            <p class="settings-heading mt-2">SARLIK TERILARI</p>
+            <div class="color-tiles mx-0 px-4">
+                <div class="tiles success"></div>
+                <div class="tiles warning"></div>
+                <div class="tiles danger"></div>
+                <div class="tiles primary"></div>
+                <div class="tiles info"></div>
+                <div class="tiles dark"></div>
+                <div class="tiles default border"></div>
+            </div>
+        </div>
+    </div>
+    {% include 'admins/admin/sidbare.html' %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-12 grid-margin">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Fayl yuklash</h4>
+                            {% if request.user.admin_profile.is_admin_kafedra %}
+                            <form class="form-sample" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <p class="card-description">
+
+                                </p>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="">Ism Familiya</label>
+                                            {{teachers.name}}
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="">Kafedra</label>
+                                            {{teachers.kafedra}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-secondary">Saqlash</button>
+                            </form>
+                            {% elif request.user.admin_profile.is_self_visible %}
+
+
+                            <form class="form-sample" method="post" action="" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <p class="card-description">
+
+                                </p>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="">Ism Familiya</label>
+                                            {{teachers.name}}
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="">Kafedra</label>
+                                            {{teachers.kafedra}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-secondary">Saqlash</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        {% include 'users/admins/footer.html' %}
+    </div>
+    <!-- main-panel ends -->
+</div>
+
+
+{% endblock content %}
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+

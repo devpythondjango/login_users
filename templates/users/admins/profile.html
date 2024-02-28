@@ -1,0 +1,150 @@
+{% extends "users/admins/base.html" %}
+{% load static %}
+{% block content %}
+
+
+  
+
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+        <div class="theme-setting-wrapper">
+          <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+          <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">Yon paneldagi terilar</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+              <div class="img-ss rounded-circle bg-light border mr-3"></div>
+              Oq
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+              <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+              Qora
+            </div>
+            <p class="settings-heading mt-2">SARLIK TERILARI</p>
+            <div class="color-tiles mx-0 px-4">
+              <div class="tiles success"></div>
+              <div class="tiles warning"></div>
+              <div class="tiles danger"></div>
+              <div class="tiles primary"></div>
+              <div class="tiles info"></div>
+              <div class="tiles dark"></div>
+              <div class="tiles default border"></div>
+            </div>
+          </div>
+        </div>
+        {% include 'users/admins/sidbare.html' %}
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <form action="{% url 'user_profile' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+            <div class="row">
+                <div class="col-md-8 grid-margin stretch-card">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-12">
+                                    <div class="card-body">
+                                        <h1 class="text-center">Mening profilim</h1>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="card-body">
+                                        <img src="{{ request.user.user_profile.get_avatar }}" class="img-fluid rounded-start" alt="rasm" style="border-radius: 8%;">
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body">
+                                        <p class="text h3">{{ user_profile.user.get_full_name }}</p>
+                                        <p class="text">{{ user_profile.user.username }}</p>
+                                        <p class="text">{{ request.user.email }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-8 grid-margin stretch-card">
+                        <div class="card">
+                        <div class="card-body">
+                            <!-- <h4 class="card-title">Shavkat Jo'raboyev</h4>
+                            <p class="card-description">
+                            Shaxsiy ma'lumotlar
+                            </p> -->
+                            <div class="form-group row">
+                                <label for="first_name" class="col-sm-3 col-form-label">Ism</label>
+                                <div class="col-sm-9">
+                                <input type="text" name="first_name" value="{{ user_profile.user.first_name }}" class="form-control form-control-lg border-success"  placeholder="Ism">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Familiya</label>
+                                <div class="col-sm-9">
+                                <input type="text" name="last_name" value="{{ user_profile.user.last_name }}" class="form-control form-control-lg border-success"  placeholder="Familiya">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="exampleInputEmail" class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-9">
+                                <input type="email" name="email" class="form-control form-control-lg border-success" id="exampleInputEmail" placeholder="info@gmail.com" value="{{ user_profile.user.email }}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Telefon</label>
+                                <div class="col-sm-9">
+                                <input type="number" name="phone" class="form-control form-control-lg border-success" id="exampleInputMobile" placeholder="+998901234567" value="{{ user_profile.phone }}">
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+                <div class="col-md-8 grid-margin stretch-card">
+                        <div class="card">
+                        <div class="card-body">
+                            
+                            <div class="form-group row">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Tug'ilgan yil</label>
+                                <div class="col-sm-9">
+                                    <input type="text" name="birthday" class="form-control form-control-lg border-success" placeholder="yyyy-mm-dd" aria-label="birthday" pattern="\d{4}-\d{2}-\d{2}" value="{{ user_profile.birthday|date:'Y-m-d' }}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Passport seria</label>
+                                <div class="col-sm-9">
+                                <input type="text" name="passport_serial" class="form-control form-control-lg border-success"  placeholder="AB1234567" required value="{{user_profile.passport_serial}}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Jins</label>
+                                <div class="col-sm-9">
+                                    <select name="gender" class="form-control form-control-lg border-success" id="gender"
+                                    aria-label="Gender select example">
+                                        <option>Jins</option>
+                                        {% for key, value in user_profile.GENDER_CHOICES %}
+                                        <option value="{{ key }}"
+                                            {% if user_profile.gender == key %} selected {% endif %}>{{ value }}
+                                        </option>
+                                {% endfor %}
+                                      </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Profil rasm</label>
+                                <div class="col-sm-9">
+                                <input type="file" name="avatar" class="form-control form-control-lg border-success" id="exampleInputMobile" placeholder="rasm">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-secondary mr-2">Saqlash</button>
+                            <a href="" class="btn btn-light">Bekor qilish</a>
+                        </div>
+                        </div>
+                </div>
+            </div>
+        </form>
+          </div>
+          <!-- content-wrapper ends -->
+          {% include 'users/admins/footer.html' %}
+        </div>
+        <!-- main-panel ends -->
+       
+       
+    </div>
+   
+{% endblock content %}

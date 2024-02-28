@@ -1,0 +1,80 @@
+{% load static %}
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+            <ul class="nav">
+              <li class="nav-item">
+                <div class="d-flex sidebar-profile">
+                  <div class="sidebar-profile-image">
+                    <img src="{{ request.user.user_profile.get_avatar }}" alt="image">
+                    <span class="sidebar-status-indicator"></span>
+                  </div> 
+                  <div class="sidebar-profile-name">
+                    <p class="sidebar-name">
+                      {{ request.user.first_name }} {{ request.user.last_name }}
+                    </p>
+                    <p class="sidebar-designation">
+                      Hush kelibsiz!
+                    </p>
+                  </div>
+                </div><hr>
+                <!-- <div class="nav-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Type to search..." aria-label="search" aria-describedby="search">
+                    <div class="input-group-append">
+                      <span class="input-group-text" id="search">
+                        <i class="typcn typcn-zoom"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div> -->
+                <p class="sidebar-menu-title">Menu</p>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+                  <i class="typcn typcn-th-small-outline menu-icon"></i>
+                  <span class="menu-title">Arizalar</span>
+                  <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="tables">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{% url 'application_list' %}">Yaratilgan arizalar</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+                  <i class="typcn typcn-document-text menu-icon"></i>
+                  <span class="menu-title">Ariza yuborish</span>
+                  <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="form-elements">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'application_create' %}">Yangi ariza yuborish</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+                  <i class="typcn typcn-cog menu-icon"></i>
+                  <span class="menu-title">Sozlamalar</span>
+                  <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="icons">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{% url 'user_profile' %}">Profilni yangilash</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                  <i class="typcn typcn-power menu-icon"></i>
+                  <span class="menu-title">Chiqish</span>
+                  <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="auth">
+                  <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{% url 'logout' %}">Tizimdan chiqish </a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+</nav>

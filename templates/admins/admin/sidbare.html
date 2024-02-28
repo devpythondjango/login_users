@@ -1,0 +1,132 @@
+{% load static %}
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+        <li class="nav-item">
+            <div class="d-flex sidebar-profile">
+                <div class="sidebar-profile-image">
+                    <img src="{{ request.user.admin_profile.get_admin_avatar }}" alt="image">
+                    <span class="sidebar-status-indicator"></span>
+                </div>
+                <div class="sidebar-profile-name">
+                    <p class="sidebar-name">
+                        {{ request.user.first_name }} {{ request.user.last_name }}
+                    </p>
+                    <p class="sidebar-designation">
+
+                    </p>
+                </div>
+            </div>
+            <!-- <div class="nav-search">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Type to search..." aria-label="search" aria-describedby="search">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="search">
+                    <i class="typcn typcn-zoom"></i>
+                  </span>
+                </div>
+              </div>
+             </div> -->
+
+        </li>
+        <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+            <p class="sidebar-menu-title">Menu</p>
+            <hr>
+            <a class="nav-link" href="{% url 'index' %}">
+                <i class="typcn typcn-device-desktop menu-icon"></i>
+                <span class="menu-title">Dashboard <span class="badge badge-primary ml-3"></span></span>
+            </a>
+        </li>
+        <li class="nav-item {% if 'hemis_arizalar' in segment %} active {% elif 'lms_arizalar' in segment %} active {% elif 'kero_a_arizalar' in segment %} active {% elif 'kero_c_arizalar' in segment %} active {% elif 'vaucher_arizalar' in segment %} active {% endif %}">
+            <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+                <i class="typcn typcn-th-small-outline menu-icon"></i>
+                <span class="menu-title">Arizalar</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="tables">
+                <ul class="nav flex-column sub-menu">
+                    {% if request.user.admin_profile.is_hemis_admin %}
+                    <li class="nav-item"><a class="nav-link {% if 'hemis_arizalar' in segment %} active {% endif %}"
+                                            href="{% url 'hemis_arizalar' %}">Hemis arizalar</a></li>
+                    {% elif request.user.admin_profile.is_lms_admin %}
+                    <li class="nav-item"><a class="nav-link {% if 'lms_arizalar' in segment %} active {% endif %}"
+                                            href="{% url 'lms_arizalar' %}">LMS arizalar</a></li>
+                    {% elif request.user.admin_profile.is_kerocontrol_admin %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'kero_a_arizalar' in segment %} active {% endif %}" href="{% url 'kero_a_arizalar' %}">Kerio arizalar A bino</a>
+                    </li>
+                    {% elif request.user.admin_profile.is_kerocontrol3_admin %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'kero_c_arizalar' in segment %} active {% endif %}" href="{% url 'kero_c_arizalar' %}">Kerio arizalar C bino</a>
+                    </li>
+                    {% elif request.user.admin_profile.is_kerocontrol2_admin %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'vaucher_arizalar' in segment %} active {% endif %}" href="{% url 'vaucher_arizalar' %}">Vaucher oluvchi arizalar</a>
+                    </li>
+                    {% elif request.user.admin_profile.is_self_visible  %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'hemis_arizalar' in segment %} active {% endif %}" href="{% url 'hemis_arizalar' %}">Hemis arizalar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'lms_arizalar' in segment %} active {% endif %}"href="{% url 'lms_arizalar' %}">LMS arizalar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'kero_a_arizalar' in segment %} active {% endif %}" href="{% url 'kero_a_arizalar' %}">Kerio arizalar A bino</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'kero_c_arizalar' in segment %} active {% endif %}" href="{% url 'kero_c_arizalar' %}">Kerio arizalar C bino</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if 'vaucher_arizalar' in segment %} active {% endif %}" href="{% url 'vaucher_arizalar' %}">Vaucher oluvchi arizalar</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-toggle="collapse" href="#dock" aria-expanded="false"
+               aria-controls="dock">
+                <i class="typcn typcn-document-text menu-icon"></i>
+                <span class="menu-title">Document</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="dock">
+                <ul class="nav flex-column sub-menu">
+                    {% if request.user.admin_profile.is_admin_kafedra %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'files' %}"> Fayllar</a></li>
+                    {% elif request.user.admin_profile.is_admin_talim %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'fayl_tasdiq' %}"> Fayl tasdiqlash</a></li>
+                    {% elif request.user.admin_profile.is_self_visible  %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'files' %}"> Fayllar</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'fayl_tasdiq' %}"> Fayl tasdiqlash</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item  {% if 'admin_profile' in segment %} active {% endif %}">
+            <hr>
+            <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+                <i class="typcn typcn-cog menu-icon text-secondary"></i>
+                <span class="menu-title">Sozlamalar</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="icons">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'admin_profile' %}">Profilni yangilash</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                <i class="typcn typcn-power menu-icon text-primary"></i>
+                <span class="menu-title">Chiqish</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Tizimdan chiqish </a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</nav>

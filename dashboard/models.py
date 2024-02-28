@@ -7,6 +7,8 @@ from django.dispatch import receiver
 from django.db.models.signals import post_delete
 from django.utils import timezone
 import os
+from users.models import Faculty, Kafedra
+from django.db.models.signals import post_save
 
 
 def admin_directory_path(instance, filename):
@@ -18,8 +20,13 @@ class AdminProfile(models.Model):
     is_hemis_admin = models.BooleanField(default=False, null=True, blank=True)
     is_lms_admin = models.BooleanField(default=False, null=True, blank=True)
     is_kerocontrol_admin = models.BooleanField(default=False, null=True, blank=True )
+    is_kerocontrol2_admin = models.BooleanField(default=False, null=True, blank=True )
+    is_kerocontrol3_admin = models.BooleanField(default=False, null=True, blank=True )
     is_self_visible = models.BooleanField(default=False, null=True, blank=True)
     is_admin = models.BooleanField(default=False, null=True, blank=True)
+    is_admin_kafedra = models.BooleanField(default=False, null=True, blank=True)
+    is_admin_talim = models.BooleanField(default=False, null=True, blank=True)
+    is_admin_oquv = models.BooleanField(default=False, null=True, blank=True)
     GENDER_MALE = 1
     GENDER_FEMALE = 2
     GENDER_CHOICES = [
@@ -43,7 +50,7 @@ class AdminProfile(models.Model):
     @property
     def get_admin_avatar(self):
         return self.admin_avatar.url if self.admin_avatar else static('img/team/default-profile-picture.png')
-
+ 
     def __str__(self):
         return self.user.username
 
@@ -66,3 +73,50 @@ def admin_profile_post_delete_handler(sender, **kwargs):
     # Delete the old file when the associated UserProfile object is deleted
     if admin_profile.admin_avatar:
         admin_profile.admin_avatar.delete(False)
+
+
+class Author(models.Model):
+    name = models.CharField(max_length=50, null=True, blank=True)
+    kafedra = models.ForeignKey(Kafedra, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class FileType(models.Model):
+    name = models.CharField(max_length=50, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Fayl(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    filetype = models.ForeignKey(FileType, related_name='fayl_type', on_delete=models.SET_NULL, null=True)
+    faculty = models.ForeignKey(Faculty, related_name='faculty', on_delete=models.SET_NULL, null=True)
+    kafedra = models.ForeignKey(Kafedra, related_name='kafedra', on_delete=models.SET_NULL, null=True)
+    authn = models.ManyToManyField(Author, related_name='author', blank=True)
+    fayl = models.FileField(upload_to='fayllar/')
+    tasdiq_soni = models.IntegerField(null=True, blank=True, default=0)
+    tasdiqlangan = models.BooleanField(default=False)
+    createdate = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-id']
+ 
+
+class FaylTasdiq(models.Model): 
+    fayl = models.ForeignKey(Fayl, on_delete=models.CASCADE)
+    admin = models.ForeignKey(User, on_delete=models.CASCADE)
+    tasdiq_vaqt = models.DateTimeField(auto_now_add=True)
+    tasdiq_holati = models.BooleanField(default=False, null=True)
+    admin_tekshirish_vaqt = models.DateTimeField(null=True, blank=True)
+    update = models.DateTimeField(auto_now=True)
+
+
+@receiver(post_save, sender=FaylTasdiq)
+def avtomatik_tekshirish_vaqt(sender, instance, created, **kwargs):
+    if created and not instance.tasdiq_holati:
+        instance.tasdiq_holati = True
+        instance.admin_tekshirish_vaqt = timezone.now()
+        instance.save()

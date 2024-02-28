@@ -1,0 +1,177 @@
+{% extends "admins/admin/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    .label{
+    padding:3px;
+    border: red;
+    }
+ .drop-container {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px dashed #555;
+  color: #444;
+  cursor: pointer;
+  transition: background .2s ease-in-out, border .2s ease-in-out;
+}
+
+.drop-container:hover {
+  background: #eee;
+  border-color: #111;
+}
+
+.drop-container:hover .drop-title {
+  color: #222;
+}
+
+.drop-title {
+  color: #444;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  transition: color .2s ease-in-out;
+}
+
+  .hidden {
+      display: none;
+  }
+  .hidden1 {
+      display: none;
+  }
+
+</style>
+
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.html -->
+    <div class="theme-setting-wrapper">
+        <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+        <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">Yon paneldagi terilar</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+                <div class="img-ss rounded-circle bg-light border mr-3"></div>
+                Oq
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+                <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+                Qora
+            </div>
+            <p class="settings-heading mt-2">SARLIK TERILARI</p>
+            <div class="color-tiles mx-0 px-4">
+                <div class="tiles success"></div>
+                <div class="tiles warning"></div>
+                <div class="tiles danger"></div>
+                <div class="tiles primary"></div>
+                <div class="tiles info"></div>
+                <div class="tiles dark"></div>
+                <div class="tiles default border"></div>
+            </div>
+        </div>
+    </div>
+    {% include 'admins/admin/sidbare.html' %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-12 grid-margin">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Fayl yuklash</h4>
+                            {% if request.user.admin_profile.is_admin_kafedra or request.user.admin_profile.is_self_visible %}
+                            <form class="form-sample" method="post" action="" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="">Fakultet</label>
+                                            {{ form.faculty }}
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="">Kafedra</label>
+                                            {{ form.kafedra }}
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="">Fayl turi</label>
+                                            {{ form.filetype }}
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <label class="">Mu'aliflar</label>
+                                            <a href="{% url 'teacher' %}" class="link-underline-light"><b
+                                                    class="py-2 btn-sm">+</b></a>
+                                            {{form.authn}}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label>Fayl yuklash</label>
+                                        <div class="form-group row">
+                                            <label class="drop-container">
+                                                {{ form.fayl }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4" hidden>
+                                        <label>Username</label><br>
+                                            {{forms.user}}
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-secondary">Saqlash</button>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'users/admins/footer.html' %}
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function (){
+       $('#id_kafedra').change(function () {
+           var kafedra_id = $(this).val();
+           if (kafedra_id) {
+               $.ajax({
+                   type: 'GET',
+                   url: '{% url "get_authors" %}',
+                   data: {'kafedra_id': kafedra_id},
+                   success: function (data) {
+                       $('#id_authn').empty();
+                       $.each(data.authors, function (key, value) {
+                           $('#id_authn').append('<option value="' + value.id + '">' + value.name + '</option>');
+                       });
+                       $('#id_authn').trigger('change');
+
+                       // Avtorlarni avtomatik ravishda tanlash
+                       $.each(data.selected_authors, function (key, value) {
+                           $('#id_authn option[value="' + value.id + '"]').prop('selected', true);
+                       });
+
+                       $('#id_authn').trigger('change');
+                   }
+               });
+           }
+       });
+
+       $('#id_authn').select2();
+   });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+{% endblock content %}
+
+
+
+

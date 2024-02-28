@@ -89,7 +89,7 @@
 #note small {
     position: relative;
     display: inline-block;
-    animation: mymove 5s infinite;
+    animation: mymove 10s infinite;
     animation-timing-function: all;
 }
 
@@ -163,7 +163,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: rgba(0, 0, 0, .6);
+    /* background: rgba(0, 0, 0, .6); */
 }
 
 .carousel-caption {
