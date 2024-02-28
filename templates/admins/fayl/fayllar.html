@@ -1,0 +1,98 @@
+{% extends "admins/admin/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.html -->
+    <div class="theme-setting-wrapper">
+        <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+        <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">Yon paneldagi terilar</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+                <div class="img-ss rounded-circle bg-light border mr-3"></div>
+                Oq
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+                <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+                Qora
+            </div>
+            <p class="settings-heading mt-2">SARLIK TERILARI</p>
+            <div class="color-tiles mx-0 px-4">
+                <div class="tiles success"></div>
+                <div class="tiles warning"></div>
+                <div class="tiles danger"></div>
+                <div class="tiles primary"></div>
+                <div class="tiles info"></div>
+                <div class="tiles dark"></div>
+                <div class="tiles default border"></div>
+            </div>
+        </div>
+    </div>
+    {% include 'admins/admin/sidbare.html' %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Yuklangan fayllar</h4>
+                            <a href="{% url 'yuklash_sahifasi' %}" type="button" class="btn btn-secondary">Fayl yuklash</a>
+                            <p class="card-description">
+                            </p>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            Fayl
+                                        </th>
+                                        <th>
+                                            Faylturi
+                                        </th>
+                                        <th>
+                                            Yuklanganvaqt
+                                        </th>
+                                        <th>
+                                            tasdiqsoni
+                                        </th>
+                                    </tr>
+                                    </thead>
+
+                                    <tbody>
+                                    {% for i in fayl %}
+                                    {% if request.user == i.user %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'edit_input' pk=i.id %}">{{ i.fayl }}</a>
+                                        </td>
+                                        <td>
+                                            {{ i.filetype }}
+                                        </td>
+                                        <td>
+                                            {{i.createdate}}
+                                        </td>
+                                        <td>
+                                            {{i.tasdiq_soni}}
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                    </tbody>
+
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        {% include 'users/admins/footer.html' %}
+    </div>
+    <!-- main-panel ends -->
+</div>
+
+
+{% endblock content %}

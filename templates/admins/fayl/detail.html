@@ -1,0 +1,93 @@
+{% extends "admins/admin/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid page-body-wrapper">
+    <!-- partial:partials/_settings-panel.html -->
+    <div class="theme-setting-wrapper">
+        <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+        <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">Yon paneldagi terilar</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+                <div class="img-ss rounded-circle bg-light border mr-3"></div>
+                Oq
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+                <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+                Qora
+            </div>
+            <p class="settings-heading mt-2">SARLIK TERILARI</p>
+            <div class="color-tiles mx-0 px-4">
+                <div class="tiles success"></div>
+                <div class="tiles warning"></div>
+                <div class="tiles danger"></div>
+                <div class="tiles primary"></div>
+                <div class="tiles info"></div>
+                <div class="tiles dark"></div>
+                <div class="tiles default border"></div>
+            </div>
+        </div>
+    </div>
+    {% include 'admins/admin/sidbare.html' %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title"><a href="">{{ fayl.fayl.name }}</a> </h4>
+                            <p class="card-description">Tasdiq soni: {{ fayl.tasdiq_soni }}</p>
+                            <p class="card-description">Tasdiqlangan: {% if fayl.tasdiqlangan %} Ha
+                                {% else %} Yo'q {% endif %}</p>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <form method="post" action="{% url 'tasdiqlash' fayl.id %}">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <div class="form-check form-check-success">
+                                                <label class="form-check-label" for="tasdiq_ha">
+                                                    <input class="form-check-input" type="radio" id="tasdiq_ha"
+                                                           name="tasdiq_holati" value="True" required>
+                                                    Tasdiqlash
+                                                    <i class="input-helper"></i></label>
+                                            </div>
+                                            <div class="form-check form-check-primary">
+                                                <label class="form-check-label" for="tasdiq_yoq">
+                                                    <input class="form-check-input" type="radio" id="tasdiq_yoq"
+                                                           name="tasdiq_holati" value="False" required>
+                                                    Inkor qilish
+                                                    <i class="input-helper"></i></label>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-secondary">Secondary</button>
+                                    </form>
+                                </div>
+                                <div class="col-md-6">
+
+                                    <h3>Tasdiqlar</h3>
+                                    <ul>
+                                        {% for tasdiq in tasdiqlar %}
+                                        <li>
+                                            {{ tasdiq.admin.username }} - {{ tasdiq.tasdiq_vaqt }} -
+                                            {% if tasdiq.tasdiq_holati %} Tasdiqlandi {% else %} Inkor qilindi
+                                            {% endif %}
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+        {% include 'users/admins/footer.html' %}
+    </div>
+    <!-- main-panel ends -->
+</div>
+
+{% endblock content %}

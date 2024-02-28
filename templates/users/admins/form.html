@@ -1,0 +1,310 @@
+{% extends "users/admins/base.html" %}
+{% load static %}
+
+{% block content %}
+<style>
+    .hidden {
+        display: none;
+    }
+    .hidden1 {
+        display: none;
+    }
+    .hidden2 {
+        display: none;
+    }
+
+</style>
+<div class="container-fluid page-body-wrapper">
+    <div class="theme-setting-wrapper">
+        <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+        <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">Yon paneldagi terilar</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+                <div class="img-ss rounded-circle bg-light border mr-3"></div>
+                Oq
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+                <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+                Qora
+            </div>
+            <p class="settings-heading mt-2">SARLIK TERILARI</p>
+            <div class="color-tiles mx-0 px-4">
+                <div class="tiles success"></div>
+                <div class="tiles warning"></div>
+                <div class="tiles danger"></div>
+                <div class="tiles primary"></div>
+                <div class="tiles info"></div>
+                <div class="tiles dark"></div>
+                <div class="tiles default border"></div>
+            </div>
+        </div>
+    </div>
+    {% include 'users/admins/sidbare.html' %}
+    <div class="main-panel">
+        <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Yangi ariza </h4>
+                            <p class="card-description">
+                                Yangi ariza yaratish
+                            </p>
+                            <form class="forms-sample" enctype="multipart/form-data" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Ism</label>
+                                            <input type="text" class="form-control form-control-lg border-success"
+                                                   placeholder="Ism" aria-label="Ism" readonly
+                                                   value="{{request.user.first_name}}" name="first_name"
+                                                   id="first_name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Familiya</label>
+                                            <input type="text" class="form-control form-control-lg border-success"
+                                                   placeholder="Familiya" aria-label="Familiya" name="last_name"
+                                                   id="last_name" readonly value="{{request.user.last_name}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Elektron po'chta</label>
+                                            <input type="email" class="form-control form-control-lg border-success"
+                                                   placeholder="info@gmail.com" aria-label="Email" name="email"
+                                                   id="email" readonly value="{{request.user.email}}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Telefon</label>
+                                            <input class="form-control form-control-lg border-success"
+                                                   aria-label="phone" name="phone" id="phone" type="number"
+                                                   placeholder="+998901234567"
+                                                   value="{{request.user.user_profile.phone}}" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Tug'ilgan kun</label>
+                                            <input class="form-control form-control-lg border-success"
+                                                   placeholder="yyyy-mm-dd" aria-label="birthday" name="birthday"
+                                                   type="text" pattern="\d{4}-\d{2}-\d{2}"
+                                                   value="{{ request.user.user_profile.birthday|date:'Y-m-d' }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Passport seria</label>
+                                            <input type="text" class="form-control form-control-lg border-success"
+                                                   placeholder="AA1234567" aria-label="passport_serial"
+                                                   name="passport_serial" required
+                                                   value="{{request.user.user_profile.passport_serial }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Passport rasm</label>
+                                            <input type="file" class="form-control form-control-lg border-success"
+                                                   name="passport_image">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group ">
+                                                            <label>Lavozim:</label>
+                                                            {{forms.position}}
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div id="div1" class="col-12 hidden ">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="form-group ">
+                                                                    <label>Fakultet</label>
+                                                                    {{forms.faculty}}
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="col-12">
+                                                                <div class="form-group ">
+                                                                    <label>Ta'lim shakli</label>
+                                                                    {{forms.talim_shakli}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="div2" class="col-md-12 hidden">
+                                                        <div class="form-group ">
+                                                            <label>Kafedra</label>
+                                                            {{forms.kafedra}}
+                                                        </div>
+                                                    </div>
+                                                    <div id="div3" class="col-md-12 hidden">
+                                                        <div class="form-group ">
+                                                            <label>Bo'lim nomi</label>
+                                                            {{forms.positionone}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group ">
+                                                            <label>Murojaat turi:</label>
+                                                            {{ forms.login_create }}
+                                                        </div>
+                                                    </div>
+                                                    <div id="div-2" class="col-md-12 hidden2">
+                                                        <div class="form-group ">
+                                                            <label>Guruh</label>
+                                                            <input type="text" class="form-control form-control-lg border-success"
+                                                            name="group" placeholder="Namuna: ax-20-07/boshqa">
+                                                        </div>
+                                                    </div>
+                                                    <div id="div-1" class="col-md-12 hidden2">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group ">
+                                                                    <label>Bino</label>
+                                                                    {{forms.building}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group ">
+                                                                    <label>Login</label>
+                                                                    <input type="text" class="form-control form-control-lg border-success"
+                                                                    name="name" placeholder="Namuna: aliyev_v">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div id="div-3" class="col-md-12 hidden2">
+                                                        <div class="form-group ">
+                                                            <label>Tizim:</label>
+                                                            {{ forms.system }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="row">
+                                                            <div id="div_1" class="col-12 hidden1">
+                                                                <div class="form-group ">
+                                                                    <label class="">ID/login</label>
+                                                                    <input id="login" type="text"
+                                                                           class="form-control hidden1 form-control-lg border-success"
+                                                                           name="tizim"
+                                                                           placeholder="ID/login">
+                                                                </div>
+                                                            </div>
+                                                            <div id="div_2" class="col-md-12 hidden1">
+                                                                <div class="form-group ">
+                                                                    <label>Bino</label>
+                                                                    {{forms.building}}
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="col-md-4" hidden>
+                                                                <label>Username</label><br>
+                                                                {{forms.user}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label>Arizaga qisqa izoh</label>
+                                        <textarea name="text" style="height:155px" required
+                                                  class="form-control mb-2 mr-sm-2 form-control-lg border-success"
+                                                  id="inlineFormInputName2 id_text"
+                                                  placeholder="Namuna: parol esimdan chiqibdi"></textarea>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-secondary mr-2">Yuborish</button>
+                                <a href="" class="btn btn-light text-end">Bekor qilish</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% include 'users/admins/footer.html' %}
+    </div>
+
+
+</div>
+<script>
+    function showDiv(select) {
+        var selectedOption = select.value;
+        // Hide all divs
+        for (var i = 1; i <= 3; i++) {
+            var divId = 'div' + i;
+            document.getElementById(divId).classList.add('hidden');
+        }
+
+        // Show the selected div
+        if (selectedOption !== '') {
+            var selectedDivId = 'div' + selectedOption;
+            document.getElementById(selectedDivId).classList.remove('hidden');
+        }
+    }
+
+    function showDiv1(select) {
+        var selectedOption1 = select.value;
+        // Hide all divs
+        for (var i = 1; i <= 2; i++) {
+            var divId = 'div_' + i;
+            document.getElementById(divId).classList.add('hidden1');
+        }
+
+        // Show the selected div
+        if (selectedOption1 == 1 || selectedOption1 == 2) {
+            var selectedDivId = 'div_1';
+            document.getElementById(selectedDivId).classList.remove('hidden1');
+            var Id = 'login';
+            document.getElementById(Id).classList.remove('hidden1');
+        }else if (selectedOption1 == 3){
+            var selectedDivId = 'div_2';
+            var selectedDivId3 = 'div_1';
+            document.getElementById(selectedDivId).classList.remove('hidden1');
+            document.getElementById(selectedDivId3).classList.remove('hidden1');
+            var Id = 'login';
+            document.getElementById(Id).classList.remove('hidden1');
+        }
+        
+    }
+
+    function showDiv2(select) {
+        var selectedOption2 = select.value;
+        // Hide all divs
+        for (var i = 1; i <= 3; i++) {
+            var divId = 'div-' + i;
+            var divId1 = 'div_1';
+            var divId2 = 'div_2';
+            var Id = 'login';
+            document.getElementById(Id).classList.add('hidden1');
+            document.getElementById(divId).classList.add('hidden2');
+            document.getElementById(divId1).classList.add('hidden1');
+            document.getElementById(divId2).classList.add('hidden1');
+        }
+
+        // Show the selected div
+        if (selectedOption2 !== '') {
+            var selectedDivId = 'div-' + selectedOption2;
+            document.getElementById(selectedDivId).classList.remove('hidden2');
+        }
+    }
+
+</script>
+{% endblock content %}

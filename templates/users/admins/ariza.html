@@ -1,0 +1,264 @@
+{% extends "users/admins/base.html" %}
+{% load static %}
+{% block content %}
+
+
+  
+
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+        <div class="theme-setting-wrapper">
+          <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+          <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">Yon paneldagi terilar</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+              <div class="img-ss rounded-circle bg-light border mr-3"></div>
+              Oq
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+              <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+              Qora
+            </div>
+            <p class="settings-heading mt-2">SARLIK TERILARI</p>
+            <div class="color-tiles mx-0 px-4">
+              <div class="tiles success"></div>
+              <div class="tiles warning"></div>
+              <div class="tiles danger"></div>
+              <div class="tiles primary"></div>
+              <div class="tiles info"></div>
+              <div class="tiles dark"></div>
+              <div class="tiles default border"></div>
+            </div>
+          </div>
+        </div>
+        {% include 'users/admins/sidbare.html' %}
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <form action="" method="post">
+            <div class="row">
+                <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0"> 
+                                <div class="col-md-12">
+                                    <div class="card-body">
+                                        <h1 class="text-center">Mening arizam</h1>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="card-body"> 
+                                        {% if create.status == 'yangi' %}
+                                        <p class="text h2"><b class="">Holat:</b> <b class="h2 text-info">{{create.status}}</b></p>
+                                        <p class="text h3"><b class="text-primary-emphasis">Izohi:</b>  <small>{{create.body}}</small></p>
+                                        <p class="text h4"><b class="text-secondary">Yaratilgan vaqt: </b> {{create.createdate}}</p>
+                                        {% if create.createdate == create.update %}
+                                        {% else %}
+                                        <p class="text h5"><b class="text-secondary">Tekshirilgan vaqt:</b> {{create.update}}</p>
+                                        {% endif %}
+
+                                        {% elif create.status == 'tekshirilmoqda' %}
+                                        <p class="text h2"><b class="">Holat:</b> <b class="h2 text-warning">{{create.status}}</b></p>
+                                        <p class="text h3"><b class="text-primary-emphasis">Izohi:</b>  <small>{{create.body}}</small></p>
+                                        <p class="text h4"><b class="text-secondary">Yaratilgan vaqt: </b> {{create.createdate}}</p>
+                                        {% if create.createdate == create.update %}
+                                        {% else %}
+                                        <p class="text h5"><b class="text-secondary">Tekshirilgan vaqt:</b> {{create.update}}</p>
+                                        {% endif %}
+
+
+                                        {% elif create.status == 'rad etildi' %}
+                                        <p class="text h2"><b class="">Holat:</b> <b class="h2 text-danger">{{create.status}}</b></p>
+                                        <p class="text h3"><b class="text-primary-emphasis">Izohi:</b>  <small>{{create.body}}</small></p>
+                                        <p class="text h4"><b class="text-secondary">Yaratilgan vaqt: </b> {{create.createdate}}</p>
+                                        {% if create.createdate == create.update %}
+                                        {% else %}
+                                        <p class="text h5"><b class="text-secondary">Tekshirilgan vaqt:</b> {{create.update}}</p>
+                                        {% endif %}
+
+                                        {% elif create.status == 'tekshirildi' %}
+                                        <p class="text h2"><b class="">Holat:</b> <b class="h2 text-success">{{create.status}}</b></p>
+                                        <p class="text h3"><b class="text-primary-emphasis">Izohi:</b>  <small>{{create.body}}</small></p>
+                                        <p class="text h4"><b class="text-secondary">Yaratilgan vaqt: </b> {{create.createdate}}</p>
+                                        {% if create.createdate == create.update %}
+                                        {% else %}
+                                        <p class="text h5"><b class="text-secondary">Tekshirilgan vaqt:</b> {{create.update}}</p>
+                                        {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Ism</label>
+                                <div class="col-sm-9">
+                                <input class="form-control form-control-lg border-success" value="{{application.first_name}}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Familiya</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.last_name}}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="exampleInputEmail" class="col-sm-3 col-form-label">Email</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.user.email}}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="exampleInputMobile" class="col-sm-3 col-form-label">Telefon</label>
+                                <div class="col-sm-9">
+                                <input type="text" class="form-control form-control-lg border-success" id="exampleInputMobile" value="{{application.phone}}" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                </div>
+                
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Tug'ilgan yil</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.birthday}}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Passport seria</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.passport_serial}}" readonly>
+                                </div>
+                            </div>
+                            {% if application.login_create.id == 1 %}
+                            <div class="form-group row"> 
+                                <label class="col-sm-3 col-form-label">Murojaat turi</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{ application.login_create }}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Bino:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.building}}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Login:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.name}}" readonly>
+                                </div>
+                            </div>
+                            {% elif application.login_create.id == 2 %}
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Murojaat turi</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{ application.login_create }}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Guruh:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.group}}" readonly>
+                                </div>
+                            </div>
+                            {% elif application.login_create.id == 3 %}
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Murojaat turi</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{ application.login_create }}" readonly>
+                                </div>
+                            </div>
+                            {% if application.system.id == 1 or application.system.id == 2 %}
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Tizim</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.system}}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Id/login:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.tizim}}" readonly>
+                                </div>
+                            </div>
+                            {% elif application.system.id == 3 %}
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Tizim</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.system}}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Id/login:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.tizim}}" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Bino:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.building}}" readonly>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+
+                            {% if application.position.id == 1 %}
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Lavozim:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.position}}" readonly>
+                                </div>
+                                <label class="col-sm-3 col-form-label">Fakultet:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.faculty}}" readonly>
+                                </div>
+                                <label class="col-sm-3 col-form-label">Talim shakli:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.talim_shakli}}" readonly>
+                                </div>
+                            </div>
+                            {% elif application.position.id == 2 %}
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Lavozim:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.position}}" readonly>
+                                </div>
+                                <label class="col-sm-3 col-form-label">Kafedra:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.kafedra}}" readonly>
+                                </div>
+                            </div>
+                            {% elif application.position.id == 3 %}
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Lavozim:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.position}}" readonly>
+                                </div>
+                                <label class="col-sm-3 col-form-label">Bo'lim:</label>
+                                <div class="col-sm-9">
+                                    <input class="form-control form-control-lg border-success" value="{{application.positionone}}" readonly>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+          </div>
+          <!-- content-wrapper ends -->
+          {% include 'users/admins/footer.html' %}
+        </div>
+        <!-- main-panel ends -->
+       
+       
+    </div>
+   
+{% endblock content %}

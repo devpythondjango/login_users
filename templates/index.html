@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bosh saxifa</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <link rel="icon" href="{% static 'img/illustrations/Logo.png' %}" type="image/x-icon">
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Saira:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="{% static 'index/lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'index/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="{% static 'index/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'index/css/style.css' %}" rel="stylesheet">
+</head>
+
+<body>
+    {% include 'notification.html' %}
+<!-- Spinner Start -->
+<div id="spinner"
+     class="show position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-grow text-primary" role="status"></div>
+</div>
+<!-- Spinner End -->
+
+<!-- Topbar Start --> 
+<div class="container-fluid bg-dark py-2 d-none d-md-flex">
+    <div class="container">
+        <div class="d-flex justify-content-between topbar">
+            <div class="top-info">
+                <small class="me-1 text-white-50"><a href="#"><i class="fas fa-map-marker-alt me-1 text-secondary"></i></a>Samarqand
+                    shahar Ibn Sino ko'chasi 2 A uy</small>
+                <br><small class="me-3 text-white-50"><a href="#"><i
+                    class="fas fa-envelope me-2 text-secondary"></i></a>info@samtuit.uz</small>
+            </div>
+            <div id="note" class="text-secondary d-none d-xl-flex"><small>Test sifatida ishlamoqda</small></div>
+            <div class="top-link">
+                <a href="https://www.facebook.com/pages/TATU-Samarqand-Filiali/214521352367698" class="bg-light nav-fill btn btn-sm-square rounded-circle"><i
+                        class="fab fa-facebook-f text-primary"></i></a>
+                <a href="https://www.youtube.com/@samarkandbranchoftuit2358" class="bg-light nav-fill btn btn-sm-square rounded-circle"><i
+                        class="fab fa-youtube text-primary"></i></a>
+                <a href="https://www.instagram.com/sbtuit2005?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="bg-light nav-fill btn btn-sm-square rounded-circle"><i
+                        class="fab fa-instagram text-primary"></i></a>
+                <a href="https://t.me/sbtuit2005" class="bg-light nav-fill btn btn-sm-square rounded-circle me-0"><i
+                        class="fab fa-telegram text-primary"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Topbar End -->
+
+<!-- Navbar Start -->
+<div class="container-fluid bg-primary">
+    <div class="container">
+        <nav class="navbar navbar-dark navbar-expand-lg py-0">
+            <a href="/" class="navbar-brand">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{% static 'img/illustrations/Logo.png' %}" alt="logo"
+                             style="width:70px; height:70px;">
+                    </div>
+                    <div class="col-md-6">
+                        <p style="font-size: 0.55rem; color:white; padding-top:9px;padding-left:5px;">
+                            MUHAMMAD AL-XORAZMIY <br> NOMIDAGI TOSHKENT AXBOROT
+                            <br>
+                            TEXNOLOGIYALARI
+                            UNIVERSITETI <br> SAMARQAND FILIALI</p>
+                    </div>
+                </div>
+            </a>
+            <button type="button" class="navbar-toggler me-0" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse bg-transparent" id="navbarCollapse">
+                <div class="navbar-nav ms-auto mx-xl-auto p-0">
+                    <a href="/" class="nav-item nav-link active text-secondary">Bosh saxifa</a>
+                    <a href="https://samtuit.uz" class="nav-item nav-link" target="_blank">Samtuit.uz</a>
+                    <a href="https://student.samtuit.uz" class="nav-item nav-link" target="_blank">Hemis</a>
+                    <a href="https://student-elms.samtuit.uz/" class="nav-item nav-link" target="_blank">LMS</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Kerio control</a>
+                        <div class="dropdown-menu rounded">
+                            <a href="https://172.20.20.1:4081" class="dropdown-item" target="_blank">A bino</a>
+                            <a href="https://172.20.20.1:4081" class="dropdown-item" target="_blank">TTJ</a>
+                        </div>
+                    </div>
+                    {% if request.user.user_profile.is_users %}
+                    <a href="{% url 'application_create' %}" class="nav-item nav-link" target="_blank">Ariza yuborish</a>
+                    {% elif request.user.admin_profile.is_admin %}
+                    {% endif %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div class="d-flex align-items-center justify-content-center me-4 pl-2">
+                        {% if request.user.is_authenticated %}
+                        {% if request.user.user_profile.is_users %}
+                        <a href="{% url 'user_profile' %}" class="position-relative animated infinite">
+                            <i class="fa fa-user-alt text-white fa-1x"><span>Profile</span></i>
+                        </a>
+                        {% elif request.user.admin_profile.is_admin %}
+                        <a href="{% url 'admin_profile' %}" class="position-relative animated infinite">
+                            <i class="fa fa-user-alt text-white fa-1x"><span>Profile</span></i>
+                        </a>
+                        {% endif %}
+                        {% else %}
+                        <a href="{% url 'login' %}" class="position-relative animated infinite">
+                            <i class="fa fa-sign-out-alt text-white fa-1x"><span>Kirish</span></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            
+        </nav>
+    </div>
+</div>
+<!-- Navbar End -->
+
+<!-- Carousel Start -->
+<div class="container-fluid px-0">
+    <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true"
+                aria-label="First slide"></li>
+            <li data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <div class="carousel-item active">
+                <img src="{% static 'img/pages/it.jpg' %}" class="img-fluid" alt="First slide">
+            </div>
+            <div class="carousel-item">
+                <img src="{% static 'img/pages/it2.jpg' %}" class="img-fluid" alt="Second slide">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+<!-- Carousel End -->
+
+
+<!-- Fact Start -->
+<div class="container-fluid bg-secondary py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 wow fadeIn" data-wow-delay=".1s">
+                <div class="d-flex counter">
+                    <h1 class="me-3 text-primary counter-value">{{user_count}}</h1>
+                    <h5 class="text-white mt-1">Jami foydalanuvchilar soni</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 wow fadeIn" data-wow-delay=".3s">
+                <div class="d-flex counter">
+                    <h1 class="me-3 text-primary counter-value">{{hemis}}</h1>
+                    <h5 class="text-white mt-1">Hemisga kelib tushgan arizalar</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 wow fadeIn" data-wow-delay=".5s">
+                <div class="d-flex counter">
+                    <h1 class="me-3 text-primary counter-value">{{kero}}</h1>
+                    <h5 class="text-white mt-1">Kerio controlga kelib tushgan arizalar</h5>
+                </div>
+            </div>
+            <div class="col-lg-3 wow fadeIn" data-wow-delay=".7s">
+                <div class="d-flex counter">
+                    <h1 class="me-3 text-primary counter-value">{{lms}}</h1>
+                    <h5 class="text-white mt-1">LMSga kelib tushgan arizalar</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Fact End -->
+
+
+<!-- About Start -->
+<div class="container-fluid py-5 my-5">
+    <div class="container pt-5">
+        <div class="row g-5">
+            <div class="col-lg-5 col-md-6 col-sm-12 wow fadeIn" data-wow-delay=".3s">
+                <div class="h-100 position-relative">
+                    <img src="{% static 'img/IMG_0003.jpg' %}" class="img-fluid w-75 rounded" alt=""
+                         style="margin-bottom: 25%;">
+                    <div class="position-absolute w-75" style="top: 25%; left: 25%;">
+                        <img src="{% static 'img/IMG_0007.jpg' %}" class="img-fluid w-100 rounded" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-6 col-sm-12 wow fadeIn" data-wow-delay=".5s">
+                <h5 class="text-primary">Biz haqimizda </h5>
+                <h1 class="mb-4">Raqamli ta’lim texnologiyalari markazi bo`limi</h1>
+                <p>Markaz o‘zining faoliyatini va rivojlanishini yaratilayotgan dasturiy hamda multimediya mahsulotlari va boshqa mahsulotlar, ko‘rsatilayotgan xizmat va ish turlari bo‘yicha rivojlanish istiqbollarni rejalashtiradi, hamda markazning ishlab-chiqarish, ijtimoiy va material-texnik bazasini kengaytirishni belgilaydi.</p>
+                <p class="mb-4">Markazning boshqa tashkilotlar, korxonalar, fizik va yuridik shaxslar bilan xo‘jalik faoliyati barcha sohalar bo‘yicha shartnoma asosidagi o‘zaro munosabatlar yordamida o‘rnatiladi. Markaz O‘zbekiston Respublikasi qonuniga va TATU Nizomiga zid bo‘lmasa, shartnoma predmetini, majburiyatlarni va xo‘jalik munosabatlarini boshqa shartlarini aniqlashda erkin tanlash huquqiga ega.</p>
+                <a href="https://samtuit.uz/uz/page/rttm-30-09-2021" class="btn btn-secondary rounded-pill px-5 py-3 text-white" target="_blank">Batafsil</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+
+<!-- Services Start -->
+<div class="container-fluid services py-5 mb-5">
+    <div class="container">
+        <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
+            <h5 class="text-primary">Bizning xizmatlarimiz</h5>
+            <h1>Services Built Specifically For Your Business</h1>
+        </div>
+        <div class="row g-5 services-inner">
+            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
+                <div class="services-item bg-light">
+                    <div class="p-4 text-center services-content">
+                        <div class="services-content-icon">
+                            <img src="{% static 'img/hemis.jpg' %}" alt=""  class="img-thumbnail" >
+                            <h4 class="mb-3">Hemis</h4>
+                            <p class="mb-4">Oliy ta’lim jarayonlarini boshqarish axborot tizimi
+                                Ushbu axborot tizimi “Ma’muriy boshqaruv”, “O‘quv jarayoni”, “Ilmiy faoliyat” va “Moliyaviy boshqaruv” modullarini o‘z ichiga olgan.</p>
+                            <a href="https://hemis.uz/" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Batafsil</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".5s">
+                <div class="services-item bg-light">
+                    <div class="p-4 text-center services-content">
+                        <div class="services-content-icon">
+                            <img src="{% static 'img/lms.png' %}" alt=""  class="img-thumbnail" >
+                            <h4 class="mb-3">LMS</h4>
+                            <p class="mb-4"></p>
+                            <a href="" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Batafsil</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".7s">
+                <div class="services-item bg-light">
+                    <div class="p-4 text-center services-content">
+                        <div class="services-content-icon">
+                            <img src="{% static 'img/control.png' %}" alt=""  class="img-thumbnail" >
+                            <h4 class="mb-3">Kerio control</h4>
+                            <p class="mb-4">Keyingi avlod tahdidlaridan himoyalanish: xavfsizlik devori, marshrutizator va ilg'or IPS tizimi, shlyuzdagi ilg'or antivirus, kirishni boshqarish va trafikni boshqarish. Sanoatning eng yaxshi kontent va ilovalarni filtrlash tizimi!</p>
+                            <a href="https://gfi-software.uz/uz/product/kerio-control/" class="btn btn-secondary text-white px-5 py-3 rounded-pill">Batafsil</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Services End -->
+
+
+<!-- Project Start -->
+<div class="container-fluid project py-5 mb-5">
+    <div class="container">
+        <div class="text-center mx-auto pb-5 wow fadeIn" data-wow-delay=".3s" style="max-width: 600px;">
+            <h5 class="text-primary">Bizning loyihamiz</h5>
+            <h1>Yaqinda tugallangan loyihalarimiz</h1>
+        </div>
+        <div class="row g-5">
+            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="{% static 'index/img/project-1.jpg' %}" class="img-fluid w-100 rounded" alt="">
+                        <div class="project-content">
+                            <a href="#" class="btn text-center disabled" role="button" aria-disabled="true" tabindex="-1">
+                                <h4 class="text-secondary">Kutubxona</h4>
+                                <p class="m-0 text-white">Kutubxondan online kitob olish</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".5s">
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="{% static 'index/img/project-2.jpg' %}" class="img-fluid w-100 rounded" alt="">
+                        <div class="project-content">
+                            <a href="/" class="text-center disabled" role="button" aria-disabled="true" tabindex="-1">
+                                <h4 class="text-secondary">Login parol</h4>
+                                <p class="m-0 text-white">Parolni xavfsiz almashtirish</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".7s">
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="{% static 'index/img/project-3.jpg' %}" class="img-fluid w-100 rounded" alt="">
+                        <div class="project-content">
+                            <a href="#" class="btn text-center disabled" role="button" aria-disabled="true" tabindex="-1">
+                                <h4 class="text-secondary">Mobile Info</h4>
+                                <p class="m-0 text-white">Upcomming Phone</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="{% static 'index/img/project-4.jpg' %}" class="img-fluid w-100 rounded" alt="">
+                        <div class="project-content">
+                            <a href="#" class="btn text-center disabled" role="button" aria-disabled="true" tabindex="-1">
+                                <h4 class="text-secondary">Web Development</h4>
+                                <p class="m-0 text-white">Web Analysis</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".5s">
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="{% static 'index/img/project-5.jpg' %}" class="img-fluid w-100 rounded" alt="">
+                        <div class="project-content">
+                            <a href="#" class="btn text-center disabled" role="button" aria-disabled="true" tabindex="-1">
+                                <h4 class="text-secondary">Digital Marketing</h4>
+                                <p class="m-0 text-white">Marketing Analysis</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".7s">
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="{% static 'index/img/project-6.jpg' %}" class="img-fluid w-100 rounded" alt="">
+                        <div class="project-content">
+                            <a href="#" class="btn text-center disabled" role="button" aria-disabled="true" tabindex="-1">
+                                <h4 class="text-secondary">keyword Research</h4>
+                                <p class="m-0 text-white">keyword Analysis</p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Project End -->
+
+
+<!-- Footer Start -->
+<div class="container-fluid footer bg-dark wow fadeIn" data-wow-delay=".3s">
+    <div class="container pt-5 pb-4">
+        <div class="row g-5">
+            <div class="col-lg-3 col-md-6">
+                <a href="/">
+                    <h1 class="text-white fw-bold d-block">TATU <br><span class="text-secondary">Samarqand filiali</span></h1>
+                </a>
+               
+                <div class="d-flex hightech-link">
+                    <a href="https://www.facebook.com/pages/TATU-Samarqand-Filiali/214521352367698" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i
+                            class="fab fa-facebook-f text-primary"></i></a>
+                    <a href="https://www.youtube.com/@samarkandbranchoftuit2358" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i
+                            class="fab fa-youtube text-primary"></i></a>
+                    <a href="https://www.instagram.com/sbtuit2005?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="btn-light nav-fill btn btn-square rounded-circle me-2"><i
+                            class="fab fa-instagram text-primary"></i></a>
+                    <a href="https://t.me/sbtuit2005" class="btn-light nav-fill btn btn-square rounded-circle me-0"><i
+                            class="fab fa-telegram text-primary"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <a class="h3 text-secondary">Tuzilma</a>
+                <div class="mt-4 d-flex flex-column short-link">
+                    <a href="https://samtuit.uz/uz/page/about-branch-17-12-2021" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Umumiy ma'lumot</a>
+                    <a href="https://samtuit.uz/uz/page/branch-charter-17-12-2021" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Universitet nizomi</a>
+                    <a href="https://samtuit.uz/uz/page/administration-09-12-2021" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Rahbariyat</a>
+                    <a href="https://samtuit.uz/uz/page/faculties-11-08-2021" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Fakultetlar</a>
+                    <a href="https://samtuit.uz/uz/page/departments-09-12-2021" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Kafedralar</a>
+                    <a href="https://samtuit.uz/uz/page/departments-and-centers-18-12-2021" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Bo'lim va markazlar</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <a  class="h3 text-secondary">Faoliyat</a>
+                <div class="mt-4 d-flex flex-column help-link">
+                    <a href="https://samtuit.uz/uz/page/scientific-activity-03-08-2023" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Ilmiy faoliyat</a>
+                    <a href="https://samtuit.uz/uz/page/international-relations-03-08-2023" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Xalqaro faoliyat</a>
+                    <a href="https://samtuit.uz/uz/page/financial-activities-03-08-2023" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Moliyaviy faoliyat</a>
+                    <a href="https://samtuit.uz/uz/page/cultural-and-educational-activities-03-08-2023" class="mb-2 text-white"><i class="fas fa-angle-right text-secondary me-2"></i>Madaniy-ma'rifiy faoliyat</a>
+                    <a class="mb-2 text-white">Online platformalar</a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <a class="h3 text-secondary">Bizning Manzil</a>
+                <div class="text-white mt-4 d-flex flex-column contact-link">
+                    <a href="#" class="pb-3 text-light border-bottom border-primary"><i
+                            class="fas fa-map-marker-alt text-secondary me-2"></i> Samarqand shahar Ibn Sino
+                            ko'chasi 2 A uy</a>
+                    <a type="tel" class="py-3 text-light border-bottom border-primary"><i
+                            class="fas fa-phone-alt text-secondary me-2"></i> +998 (66) 232 2929</a>
+                    <a type="gmail" class="py-3 text-light border-bottom border-primary"><i
+                            class="fas fa-envelope text-secondary me-2"></i> info@samtuit.uz</a>
+                </div>
+            </div>
+        </div>
+        <hr class="text-light mt-5 mb-4">
+        <!-- <div class="row">
+            <div class="col-md-6 text-center text-md-start">
+                <span class="text-light"><a href="#" class="text-secondary"><i class="fas fa-copyright text-secondary me-2"></i>Your Site Name</a>, All right reserved.</span>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <span class="text-light">Designed By
+                    <a href=""class="text-secondary">HTML Codex</a>
+                        Distributed By 
+                    <a href="">ThemeWagon</a>
+                </span>
+            </div>
+        </div> -->
+    </div>
+</div>
+<!-- Footer End -->
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-secondary btn-square rounded-circle back-to-top"><i
+        class="fa fa-arrow-up text-white"></i></a>
+
+
+<!-- JavaScript Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'index/lib/wow/wow.min.js' %}"></script>
+<script src="{% static 'index/lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'index/lib/waypoints/waypoints.min.js' %}"></script>
+<script src="{% static 'index/lib/owlcarousel/owl.carousel.min.js' %}"></script>
+
+<!-- Template Javascript -->
+<script src="{% static 'index/js/main.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+{% extends "admins/admin/base.html" %}
+{% load static %}
+{% block content %}
+
+  
+
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+        <div class="theme-setting-wrapper">
+          <div id="settings-trigger"><i class="typcn typcn-cog-outline"></i></div>
+          <div id="theme-settings" class="settings-panel">
+            <i class="settings-close typcn typcn-delete-outline"></i>
+            <p class="settings-heading">Yon paneldagi terilar</p>
+            <div class="sidebar-bg-options" id="sidebar-light-theme">
+              <div class="img-ss rounded-circle bg-light border mr-3"></div>
+              Oq
+            </div>
+            <div class="sidebar-bg-options selected" id="sidebar-dark-theme">
+              <div class="img-ss rounded-circle bg-dark border mr-3"></div>
+              Qora
+            </div>
+            <p class="settings-heading mt-2">SARLIK TERILARI</p>
+            <div class="color-tiles mx-0 px-4">
+              <div class="tiles success"></div>
+              <div class="tiles warning"></div>
+              <div class="tiles danger"></div>
+              <div class="tiles primary"></div>
+              <div class="tiles info"></div>
+              <div class="tiles dark"></div>
+              <div class="tiles default border"></div>
+            </div>
+          </div>
+        </div>
+        {% include 'admins/admin/sidbare.html' %}
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <h1 class="text-center">{{application}}</h1>
+                    </div>
+                </div>
+                <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <div class="card-body">
+                                        <a target="_blank" href="{{ application.get_passport }}">
+                                        <img src="{{ application.get_passport }}" class="img-fluid rounded-start" alt="rasm" style="border-radius: 8%;">
+                                    </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body">
+                                        {% if application.login_create.id == 1 %}
+                                        <p class="text"><b>Murojaat turi:</b> {{application.login_create}}</p>
+                                        <p class="text"><b>Bino:</b>{{application.building}}</p>
+                                        <p class="text"><b>Login:</b>{{application.name}}</p>
+                                        <p class="text"><b>Telefon:</b> +{{application.phone}}  </p>
+                                        <p class="text"><b>Passvor seria:</b> {{application.passport_serial}}</p>
+                                        <p class="text"><b>Email:</b> {{application.user.email}}</p>
+                                        <p class="text"><b>{{application.first_name}}ning arizaga izohi: </b>{{application.text}}</p>
+                                        {% elif application.login_create.id == 2 %}
+                                        <p class="text"><b>Murojaat turi:</b> {{application.login_create}}</p>
+                                        <p class="text"><b>Guruh:</b> {{application.group}}</p>
+                                        <p class="text"><b>Telefon:</b> +{{application.phone}}  </p>
+                                        <p class="text"><b>Passvor seria:</b> {{application.passport_serial}}</p>
+                                        <p class="text"><b>Email:</b> {{application.user.email}}</p>
+                                        <p class="text"><b>{{application.first_name}}ning arizaga izohi: </b>{{application.text}}</p>
+                                        {% elif application.login_create.id == 3 %}
+                                        <p class="text"><b>Murojaat turi:</b> {{application.login_create}}</p>
+                                        {% if application.system.id == 1 or application.system.id == 2 %}
+                                        <p class="text"><b>Tizim:</b> {{application.system}}</p>
+                                        <p class="text"><b>Id/login:</b>{{application.tizim}}</p>
+                                        {% elif application.system.id == 3 %}
+                                        <p class="text"><b>Tizim:</b> {{application.system}}</p>
+                                        <p class="text"><b>Id/login:</b>{{application.tizim}}</p>
+                                        <p class="text"><b>Bino:</b>{{application.building}}</p>
+                                        {% endif %}
+                                        <p class="text"><b>Telefon:</b> +{{application.phone}}  </p>
+                                        <p class="text"><b>Passvor seria:</b> {{application.passport_serial}}</p>
+                                        <p class="text"><b>Email:</b> {{application.user.email}}</p>
+                                        <p class="text"><b>{{application.first_name}}ning arizaga izohi: </b>{{application.text}}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body">
+                                        {% if application.position.id == 1 %}
+                                        <p class="text"><b>Lavozim:</b> {{application.position}}</p>
+                                        <p class="text"><b>Fakultet:</b> {{application.faculty}}</p>
+                                        <p class="text"><b>Ta'lim shakli:</b> {{application.talim_shakli}}</p>
+                                        <p class="text"><b>Tug'ulgan sana:</b> {{application.birthday}}</p>
+                                        <p class="text"><b>Ariza holati:</b> <small class="h5" style="color: blue;">{{application.app_create.status}}</small></p>
+                                        <p class="text"><b>Admin izohi:</b> <small class="h5" style="color: blue;">{{application.app_create.body}}</small></p>
+                                        {% elif application.position.id == 2 %}
+                                        <p class="text"><b>Lavozim:</b> {{application.position}}</p>
+                                        <p class="text"><b>Kafedra:</b> {{application.kafedra}}</p>
+                                        <p class="text"><b>Tug'ulgan sana:</b> {{application.birthday}}</p>
+                                        <p class="text"><b>Ariza holati:</b> <small class="h5" style="color: blue;">{{application.app_create.status}}</small></p>
+                                        <p class="text"><b>Admin izohi:</b> <small class="h5" style="color: blue;">{{application.app_create.body}}</small></p>
+                                        {% elif application.position.id == 3 %}
+                                        <p class="text"><b>Lavozim:</b> {{application.position}}</p>
+                                        <p class="text"><b>Bolim:</b> {{application.positionone}}</p>
+                                        <p class="text"><b>Tug'ulgan sana:</b> {{application.birthday}}</p>
+                                        <p class="text"><b>Ariza holati:</b> <small class="h5" style="color: blue;">{{application.app_create.status}}</small></p>
+                                        <p class="text"><b>Admin izohi:</b> <small class="h5" style="color: blue;">{{application.app_create.body}}</small></p>
+                                        {% endif %}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="col-md-12 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                    <div class="row"> 
+                                        <div class="col-md-4">
+                                            <div class="form-group row">
+                                            <label for="status">Status:</label>
+                                            {{form.status}}
+                                        </div>
+                                        </div>
+                                        <div class="col-md-4" hidden>
+                                            <label for="status">Username:</label>
+                                            {{form.user}}
+                                        </div>
+                                        <div class="col-md-4" hidden>
+                                            <label for="status">Ism Familiya:</label>
+                                            {{form.application}}
+                                        </div>
+                                        
+                                    </div> <br>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                            <label for="id_body">Murojaat mazmuni to'liq xolda</label>
+                                            <textarea name="body" class="form-control" id="id_body" style="height:155px" required ></textarea>
+                                        </div>
+                                        </div>
+                                    </div><br>
+                                    <button type="submit" class="save btn btn-secondary">Saqlash</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          {% include 'users/admins/footer.html' %}
+        </div>
+        <!-- main-panel ends -->
+    </div>
+   
+{% endblock content %}

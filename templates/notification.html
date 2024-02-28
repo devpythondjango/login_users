@@ -1,0 +1,48 @@
+<style>
+    .fixed{
+      position: fixed;
+      right: 2%;
+      top: 5%;
+      z-index: 111111;
+    
+    }
+      .notification {
+      margin: 10px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    
+    .notification.success {
+      background-color: #4CAF50;
+      color: white;
+    }
+    
+    .notification.error {
+      background-color: #f44336;
+      color: white;
+    }
+    
+    .notification.warning {
+      background-color: #ff9800;
+      color: white;
+    }
+    
+      </style>
+
+<div class="fixed">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="notification {{ message.tags }}">
+          <p>{{ message|capfirst }}</p>
+        </div>
+      {% endfor %}
+      <script>
+        setTimeout(function() {
+          var notifications = document.querySelectorAll('.notification');
+          notifications.forEach(function(notification) {
+            notification.remove();
+          });
+        }, 4000);
+      </script>
+    {% endif %}
+  </div>

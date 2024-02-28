@@ -22,23 +22,24 @@ class RegisterForm(UserCreationForm):
                                                               }))
     username = forms.CharField(max_length=100,
                                required=True,
-                               widget=forms.TextInput(attrs={'placeholder': 'Username',
+                               widget=forms.TextInput(attrs={'placeholder': 'Foydalanuvchi nomi',
                                                              'class': 'form-control',
                                                              }))
     email = forms.EmailField(required=True,
                              widget=forms.TextInput(attrs={'placeholder': 'Email',
                                                            'class': 'form-control',
+                                                           'type' : 'email'
                                                            }))
     password1 = forms.CharField(max_length=50,
                                 required=True,
-                                widget=forms.PasswordInput(attrs={'placeholder': 'Parol',
+                                widget=forms.PasswordInput(attrs={'placeholder': 'Yangi parol',
                                                                   'class': 'form-control',
                                                                   'data-toggle': 'password',
                                                                   'id': 'password',
                                                                   }))
     password2 = forms.CharField(max_length=50,
                                 required=True,
-                                widget=forms.PasswordInput(attrs={'placeholder': 'Parol',
+                                widget=forms.PasswordInput(attrs={'placeholder': 'Parolni tasdiqlash',
                                                                   'class': 'form-control',
                                                                   'data-toggle': 'password',
                                                                   'id': 'password',

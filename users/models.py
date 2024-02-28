@@ -28,7 +28,7 @@ class Profile(models.Model):
     passport_serial = models.CharField(max_length=9, validators=[validate_passport_serial], null=True, blank=True)
     phone = models.CharField(max_length=32, null=True, blank=True)
     gender = models.PositiveSmallIntegerField(choices=GENDER_CHOICES, null=True, blank=True)
- 
+  
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -112,6 +112,12 @@ class Building(models.Model):
     def __str__(self):
         return self.name
 
+class LoginCreate(models.Model):
+    name = models.CharField(max_length=254, null=True, blank=True)
+
+    def __str__(self):
+        return self.name
+
 
 class Application(models.Model):
     first_name = models.CharField(max_length=50, null=True, blank=True)
@@ -119,20 +125,20 @@ class Application(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     birthday = models.DateField(null=True, blank=True)
     passport_serial = models.CharField(max_length=9, validators=[validate_passport_serial], null=True, blank=True)
-    passport_image = models.ImageField(upload_to='user_passport/', null=True, blank=True)
-    image = models.ImageField(upload_to='user_image/', null=True, blank=True)
     phone = models.CharField(max_length=32, null=True, blank=True)
-    position = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True, blank=True)
-    system = models.ForeignKey(System, on_delete=models.SET_NULL, null=True, blank=True)
 
-    faculty = models.ForeignKey(Faculty, on_delete=models.SET_NULL, null=True, blank=True)
-    kurs = models.CharField(max_length=10, null=True, blank=True)
+    passport_image = models.ImageField(upload_to='user_passport/', null=True, blank=True)
+    position = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True, blank=True)
+
+    login_create = models.ForeignKey(LoginCreate, on_delete=models.SET_NULL, null=True, blank=True) 
+    system = models.ForeignKey(System, on_delete=models.SET_NULL, null=True, blank=True)
+    name = models.CharField(max_length=50, null=True, blank=True)
     group = models.CharField(max_length=50, null=True, blank=True)
+    faculty = models.ForeignKey(Faculty, on_delete=models.SET_NULL, null=True, blank=True)
     talim_shakli = models.ForeignKey(Talimshakli, on_delete=models.SET_NULL, null=True, blank=True)
 
-    name = models.CharField(max_length=50, null=True, blank=True)
     kafedra = models.ForeignKey(Kafedra, on_delete=models.SET_NULL, null=True, blank=True)
-    positionone = models.ForeignKey(PositionOne, on_delete=models.SET_NULL, null=True, blank=True)
+    positionone = models.ForeignKey(PositionOne, on_delete=models.SET_NULL, null=True, blank=True) 
 
     tizim = models.CharField(max_length=50, null=True, blank=True)
     building = models.ForeignKey(Building, on_delete=models.SET_NULL, null=True, blank=True)
@@ -146,15 +152,12 @@ class Application(models.Model):
     def get_passport(self):
         return self.passport_image.url if self.passport_image else static('')
 
-    @property
-    def get_image(self):
-        return self.image.url if self.image else static('')
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
 
-class ApplicationCreate(models.Model):
+class ApplicationCreate(models.Model): 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     application = models.OneToOneField(Application,  related_name='app_create', on_delete=models.SET_NULL, null=True, blank=True) 
     update = models.DateTimeField(auto_now=True)
